@@ -2,12 +2,13 @@ import { Box, makeStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Input from '.';
-import {colors} from '../../theme/colors';
+import { colors } from '../../theme/colors';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import cn from 'classnames';
 
 const useStyles = makeStyles({
-    container:{
-        marginBottom: '0.5rem'
+    container: {
+        marginBottom: '0.5rem',
     },
     wrapper: {
         width: '100%',
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
         borderColor: (props) => (props.error ? colors.red : colors.blue),
     },
     red: {
-        color: colors,
+        color: colors.red,
     },
 });
 
@@ -43,7 +44,7 @@ const InputWithLabel = ({ label, inputRegister, error, iscompulsory, errorMsg, .
     return (
         <Box className={classes.container}>
             <Typography className={classes.label}>
-                {label} {iscompulsory && <span  className={classes.red}>*</span>}
+                {label} {iscompulsory && <span className={cn({ [classes.red]: error })}>*</span>}
             </Typography>
             <Input error={error} inputRegister={inputRegister} {...props} />
             <ErrorMessage errorMsg={errorMsg} />

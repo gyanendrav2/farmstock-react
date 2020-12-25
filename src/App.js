@@ -13,10 +13,11 @@ export class App extends React.Component {
     render() {
         return (
             <React.Fragment>
+                <Loader initial={false} />
                 <MuiThemeProvider theme={theme}>
                     <ToastContainer closeButton={this.CloseButton} />
                     <Router>
-                        <Suspense fallback={<Loader />}>
+                        <Suspense fallback={<Loader initial={true} />}>
                             <Switch>
                                 {rootRoutes.map((item, i) => (
                                     <Route key={i} path={item.path} component={item.component} />

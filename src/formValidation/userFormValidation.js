@@ -13,6 +13,6 @@ export const userFormValidation = yup.object().shape({
     "Current Milking": yup.string().required("This is a required field."),
     "Milking Capacity": yup.string().required("This is a required field."),
     Pregnancy_Month: yup.string().required("This is a required field."),
-    "Calf Status": yup.string().required("This is a required field."),
-    More_Info: yup.string().required("This is a required field."),
+    // "Calf Status": yup.string().required("This is a required field."),
+    // More_Info: yup.string().required("This is a required field."),
 });

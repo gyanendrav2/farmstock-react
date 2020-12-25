@@ -1,24 +1,22 @@
-import { Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
+import classNames from 'classnames';
 import { images } from '../../assets/images';
+import { loaderSelector } from '../../redux/selectors/uiSelector';
+import { useSelector } from 'react-redux';
+import "./style.css"
 
-const useStyles = makeStyles(({
-    wrapper:{
-        height: '100vh'
-    },
-    image:{
-        width: '5rem',
 
+const Loader = ({ initial = false }) => {
+    const loader = useSelector(loaderSelector);
+    if (initial || loader) {
+        return (
+            <div className={classNames("loaderWrapper", "loaderWrapperBg")}>
+                <img src={images.loader} alt="" />
+            </div>
+        );
+    } else {
+        return <></>;
     }
-}))
-
-const Loader = () => {
-    const classes = useStyles();
-    return (
-        <Grid container alignItems="center" justify="center" className={classes.wrapper}>
-            <img src={images.loader} className={classes.image} />
-        </Grid>
-    );
-}
+};
 
 export default Loader;

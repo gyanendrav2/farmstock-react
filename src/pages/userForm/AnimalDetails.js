@@ -4,11 +4,13 @@ import { Box, makeStyles, Typography } from '@material-ui/core';
 import { colors } from '../../theme/colors';
 import SelectWithLabelIcon from '../../components/inputs/SelectWithLabelIcon';
 import InputWithLabel from '../../components/inputs/InputWithLabel';
-import { dropdownFarmatter } from '../../helper/dropdownFarmatter';
+import { dropdownFarmatter, dropdownFarmatterIfMaxMinFound } from '../../helper/dropdownFarmatter';
 import CustomButton from '../../components/buttons/CustomButton';
-import { fetcher } from '../../redux/actions/animalActions';
+import { fetcher, getAnimalThumbnailAPIcall, uploadAnimalImagesAPIcall } from '../../redux/actions/animalActions';
 import useSWR from 'swr';
 import { apiEndpoints } from '../../utility/apiEndpoints';
+import ImageCard from '../../components/card/ImageCard';
+import { baseUrl } from '../../utility/baseurls';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -29,14 +31,12 @@ const useStyles = makeStyles({
     },
 });
 
-const AnimalDetails = ({ inputRegister, errors }) => {
+const AnimalDetails = ({ inputRegister, errors, uploadImages, imageThumbnail, setImageThumbnail }) => {
     const classes = useStyles();
     const featureData = useSWR(apiEndpoints.featureListing, fetcher);
     const animals = useSWR(apiEndpoints.animals, fetcher);
-
     const [featureListingData, setFeatureListingData] = useState([]);
     const [animalsList, setAnimalsList] = useState([]);
-
     useEffect(() => {
         if (featureData.data) {
             setFeatureListingData(featureData.data);
@@ -48,6 +48,26 @@ const AnimalDetails = ({ inputRegister, errors }) => {
             setAnimalsList(animals.data);
         }
     }, [animals.data]);
+
+    const handleAnimal = async (e) => {
+        const result = await getAnimalThumbnailAPIcall(e.target.value);
+        if (result.status === 200) {
+            const images = result.data[0].images.map((item) => {
+                return { buttonText: item.action_text, image: baseUrl + item.image.thumbnail };
+            });
+            setImageThumbnail({ label: result.data[0].action_text, images: images });
+        }
+    };
+
+    const handleFileUpload = async (e, index) => {
+        const result = await uploadAnimalImagesAPIcall(e.target.files[0]);
+        if (result?.data?.image) {
+            const data = { ...imageThumbnail };
+            data.images[index].image = result.data.image.thumbnail;
+            setImageThumbnail(data);
+            uploadImages(result.data.id);
+        }
+    };
 
     return (
         <Box className={classes.wrapper}>
@@ -62,6 +82,7 @@ const AnimalDetails = ({ inputRegister, errors }) => {
                     error={errors?.pickAnimal ? true : false}
                     errorMsg={errors?.pickAnimal?.message}
                     inputRegister={inputRegister}
+                    onChange={handleAnimal}
                 />
                 {featureListingData.map((item) => {
                     if (item.feature_type === 'integer') {
@@ -98,7 +119,7 @@ const AnimalDetails = ({ inputRegister, errors }) => {
                                 label={item.action_text}
                                 placeholder={item.action_text}
                                 name={item.name}
-                                options={dropdownFarmatter(item.dict_drop_down)}
+                                options={dropdownFarmatterIfMaxMinFound(item)}
                                 error={errors[item.name] ? true : false}
                                 errorMsg={errors[item.name]?.message ? item.error : ''}
                                 inputRegister={inputRegister}
@@ -119,17 +140,7 @@ const AnimalDetails = ({ inputRegister, errors }) => {
                             </>
                         );
                     } else if (item.feature_type == 'images') {
-                        return (
-                            // <ImageCard
-                            //     action_text={item.action_text}
-                            //     image={img}
-                            //     stateName={img}
-                            //     data={item.images}
-                            //     setData={onImageChange}
-                            //     postImage={imageHandler}
-                            // />
-                            <></>
-                        );
+                        return <ImageCard imageThumbnail={imageThumbnail} handleFileUpload={handleFileUpload} />;
                     }
                 })}
                 <CustomButton externalClass={classes.button} type="submit" label="Submit" />
@@ -141,6 +152,10 @@ const AnimalDetails = ({ inputRegister, errors }) => {
 AnimalDetails.propTypes = {
     inputRegister: PropTypes.func,
     errors: PropTypes.object,
+    getValues: PropTypes.func,
+    uploadImages: PropTypes.func,
+    imageThumbnail: PropTypes.object,
+    setImageThumbnail: PropTypes.func
 };
 
 export default AnimalDetails;
