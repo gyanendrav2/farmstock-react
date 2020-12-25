@@ -1,0 +1,23 @@
+@import '../../Assets/Fonts/stylesheet.css';
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 16px; /*1rem = 16px*/
+    body {
+        font-family: 'CircularXXWeb-Book';
+        background-color: $white;
+        text-rendering: geometricPrecision;
+        -webkit-font-smoothing: antialiased !important;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        -ms-overflow-style: none;
+    }
+}

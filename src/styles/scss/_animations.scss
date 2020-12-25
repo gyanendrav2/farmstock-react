@@ -1,0 +1,55 @@
+@keyframes progress {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes rotateOn {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(90deg);
+    }
+}
+
+@keyframes rotateOff {
+    from {
+        transform: rotate(90deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+@-webkit-keyframes zoomeffect {
+    0% {
+        background-position: center;
+        transform: scale(1, 1);
+    }
+    50% {
+        background-position: center;
+        transform: scale(1.5, 1.5);
+    }
+    100% {
+        background-position: center;
+        transform: scale(1, 1);
+    }
+}
+@keyframes zoomeffect {
+    0% {
+        background-position: center;
+        transform: scale(1, 1);
+    }
+    50% {
+        background-position: center;
+        transform: scale(1.5, 1.5);
+    }
+    100% {
+        background-position: center;
+        transform: scale(1, 1);
+    }
+}
