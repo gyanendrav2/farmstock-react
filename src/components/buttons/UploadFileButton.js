@@ -2,7 +2,7 @@ import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import CustomButton from './CustomButton';
-import { Box, Card, CardActionArea, CardMedia, Grid, GridListTile } from '@material-ui/core';
+import { Box, CardActionArea, CardMedia, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
     input: {
@@ -25,7 +25,7 @@ const UploadFileButton = ({ handleFilePicker, label, alt, src }) => {
         input.current.click();
     };
     return (
-        <Grid item md={6} sm={12} onClick={handleTrigger}>
+        <Grid item md={6} sm={6} xs={6} onClick={handleTrigger}>
             <CardActionArea>
                 <input
                     ref={input}

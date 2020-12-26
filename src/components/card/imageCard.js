@@ -1,4 +1,4 @@
-import { Box, Grid, GridList, makeStyles, Typography } from '@material-ui/core';
+import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import UploadFileButton from '../buttons/UploadFileButton';
 import PropTypes from 'prop-types';
