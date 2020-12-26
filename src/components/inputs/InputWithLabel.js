@@ -47,7 +47,7 @@ const InputWithLabel = ({ label, inputRegister, error, iscompulsory, errorMsg, .
                 {label} {iscompulsory && <span className={cn({ [classes.red]: error })}>*</span>}
             </Typography>
             <Input error={error} inputRegister={inputRegister} {...props} />
-            <ErrorMessage errorMsg={errorMsg} />
+            {iscompulsory == true ? <ErrorMessage errorMsg={errorMsg} /> : null}
         </Box>
     );
 };

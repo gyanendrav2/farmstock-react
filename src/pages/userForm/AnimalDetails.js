@@ -56,6 +56,7 @@ const AnimalDetails = ({ inputRegister, errors, uploadImages, imageThumbnail, se
                 return { buttonText: item.action_text, image: baseUrl + item.image.thumbnail };
             });
             setImageThumbnail({ label: result.data[0].action_text, images: images });
+            setFeatureListingData(result.data);
         }
     };
 
@@ -155,7 +156,7 @@ AnimalDetails.propTypes = {
     getValues: PropTypes.func,
     uploadImages: PropTypes.func,
     imageThumbnail: PropTypes.object,
-    setImageThumbnail: PropTypes.func
+    setImageThumbnail: PropTypes.func,
 };
 
 export default AnimalDetails;

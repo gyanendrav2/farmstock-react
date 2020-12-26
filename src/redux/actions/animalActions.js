@@ -20,6 +20,7 @@ export const createNewPublicPostAPIcall = async (data) => {
 };
 
 export const getAnimalThumbnailAPIcall = async (id) => {
+    //console.log(id);
     dispatch(spinner(true));
     const result = await API.get(apiEndpoints.featureAnimal + `${id}&point=85.6127226%2C23.5749498`).then((res) => res);
     dispatch(spinner(false));
