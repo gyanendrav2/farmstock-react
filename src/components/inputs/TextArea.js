@@ -1,7 +1,7 @@
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Input from '.';
+import TextAreaInput from './TextAreaInput';
 import { colors } from '../../theme/colors';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import cn from 'classnames';
@@ -47,7 +47,7 @@ const TextArea = ({ label, inputRegister, error, iscompulsory, errorMsg, ...prop
             <Typography className={classes.label}>
                 {label} {iscompulsory && <span className={cn({ [classes.red]: error })}>*</span>}
             </Typography>
-            <Input className={classes.input} error={error} inputRegister={inputRegister} {...props} />
+            <TextAreaInput className={classes.input} error={error} inputRegister={inputRegister} {...props} />
             {iscompulsory == true ? <ErrorMessage errorMsg={errorMsg} /> : null}
         </Box>
     );
