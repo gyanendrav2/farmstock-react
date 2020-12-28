@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import CustomButton from './CustomButton';
 import { Box, CardActionArea, CardMedia, Grid } from '@material-ui/core';
+import ResponsiveImage from '../responsiveImage/ResponsiveImage';
 
 const useStyles = makeStyles({
     image:{
@@ -41,8 +42,8 @@ const UploadFileButton = ({ handleFilePicker, label, alt, src }) => {
                     }}
                     onChange={handleFilePicker}
                 />
-
-                <CardMedia component="img" alt={alt} height="100%" src={src} title={alt} className={classes.image} />
+                <ResponsiveImage src={src}/>
+                {/* <CardMedia component="img" alt={alt} height="100%" src={src} title={alt} className={classes.image} /> */}
                 <Box>
                     <CustomButton externalClass={classes.button} label={label} />
                 </Box>
