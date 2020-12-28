@@ -7,6 +7,7 @@ import { Box, makeStyles, Typography } from '@material-ui/core';
 import UserDetails from './UserDetails';
 import AnimalDetails from './AnimalDetails';
 import { createUser } from '../../helper/createUser';
+import CongratsPage from '../congo_page';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -55,6 +56,7 @@ const UserForm = () => {
                     errors={errors}
                 />
             </form>
+            <CongratsPage />
         </Box>
     );
 };
