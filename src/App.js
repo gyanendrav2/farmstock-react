@@ -20,7 +20,7 @@ export class App extends React.Component {
                         <Suspense fallback={<Loader initial={true} />}>
                             <Switch>
                                 {rootRoutes.map((item, i) => (
-                                    <Route key={i} path={item.path} component={item.component} />
+                                    <Route key={i} exact path={item.path} component={item.component} />
                                 ))}
                             </Switch>
                         </Suspense>

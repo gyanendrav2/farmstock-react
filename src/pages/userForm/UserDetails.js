@@ -8,6 +8,7 @@ import useSWR from 'swr';
 import { apiEndpoints } from '../../utility/apiEndpoints';
 import { fetcher, getAllBlocksAPIcall, getAllDistrictAPIcall } from '../../redux/actions/animalActions';
 import { dropdownFarmatter } from '../../helper/dropdownFarmatter';
+import { filterValueById } from '../../helper/filterValueById';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -19,14 +20,20 @@ const useStyles = makeStyles({
     },
 });
 
-const UserDetails = ({ inputRegister, errors }) => {
+const UserDetails = ({ inputRegister, errors, getFullInfo }) => {
     const classes = useStyles();
     const states = useSWR(apiEndpoints.states, fetcher);
     const [district, setDistrict] = useState([]);
     const [blocks, setBlocks] = useState([]);
 
-
     const handleState = async (e) => {
+        if (states?.data?.results) {
+            const getStateName = filterValueById(states?.data?.results, e.target.value);
+            if (getStateName.length) {
+                getFullInfo({ stateName: getStateName[0].name });
+            }
+        }
+
         const result = await getAllDistrictAPIcall(e.target.value);
         if (result.status === 200) {
             setDistrict(dropdownFarmatter(result.data.results));
@@ -34,9 +41,25 @@ const UserDetails = ({ inputRegister, errors }) => {
     };
 
     const handleDistrict = async (e) => {
+        if (district) {
+            const getStateName = district.filter((item) => item.value == e.target.value);
+            if (getStateName.length) {
+                getFullInfo({ districtName: getStateName[0].label });
+            }
+        }
+
         const result = await getAllBlocksAPIcall(e.target.value);
         if (result.status === 200) {
             setBlocks(dropdownFarmatter(result.data.results));
+        }
+    };
+
+    const handleBlock = async (e) => {
+        if (blocks) {
+            const getStateName = blocks.filter((item) => item.value == e.target.value);
+            if (getStateName.length) {
+                getFullInfo({ blockName: getStateName[0].label });
+            }
         }
     };
 
@@ -93,12 +116,13 @@ const UserDetails = ({ inputRegister, errors }) => {
                     errorMsg={errors.state?.message}
                     inputRegister={inputRegister}
                 />
-                 <SelectWithLabelIcon
+                <SelectWithLabelIcon
                     iscompulsory={true}
                     label="Block"
                     placeholder="Select Block"
                     name="block_id"
                     options={blocks}
+                    onChange={handleBlock}
                     error={errors.state ? true : false}
                     errorMsg={errors.state?.message}
                     inputRegister={inputRegister}
@@ -113,6 +137,7 @@ const UserDetails = ({ inputRegister, errors }) => {
 UserDetails.propTypes = {
     inputRegister: PropTypes.func,
     errors: PropTypes.object,
+    getFullInfo: PropTypes.func,
 };
 
 export default UserDetails;

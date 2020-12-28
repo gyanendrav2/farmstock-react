@@ -40,6 +40,7 @@ const AnimalDetails = ({
     imageThumbnail,
     setImageThumbnail,
     getDynamicValidation,
+    getImagesLinks,
 }) => {
     const classes = useStyles();
     const featureData = useSWR(apiEndpoints.featureListing, fetcher);
@@ -74,11 +75,13 @@ const AnimalDetails = ({
 
     const handleFileUpload = async (e, index) => {
         const result = await uploadAnimalImagesAPIcall(e.target.files[0]);
-        if (result?.data?.image) {
+
+        if (result?.data?.id) {
             const data = { ...imageThumbnail };
             data.images[index].image = result.data.image.thumbnail;
             setImageThumbnail(data);
             uploadImages(result.data.id);
+            getImagesLinks(result.data.image.original);
         }
     };
 
@@ -182,6 +185,7 @@ AnimalDetails.propTypes = {
     imageThumbnail: PropTypes.object,
     setImageThumbnail: PropTypes.func,
     getDynamicValidation: PropTypes.func,
+    getImagesLinks: PropTypes.func,
 };
 
 export default AnimalDetails;
