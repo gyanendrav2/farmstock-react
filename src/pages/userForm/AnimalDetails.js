@@ -11,6 +11,8 @@ import useSWR from 'swr';
 import { apiEndpoints } from '../../utility/apiEndpoints';
 import ImageCard from '../../components/card/ImageCard';
 import { baseUrl } from '../../utility/baseurls';
+import { validationGenerator } from '../../helper/validationGenerator';
+
 
 const useStyles = makeStyles({
     wrapper: {
@@ -31,7 +33,14 @@ const useStyles = makeStyles({
     },
 });
 
-const AnimalDetails = ({ inputRegister, errors, uploadImages, imageThumbnail, setImageThumbnail }) => {
+const AnimalDetails = ({
+    inputRegister,
+    errors,
+    uploadImages,
+    imageThumbnail,
+    setImageThumbnail,
+    getDynamicValidation,
+}) => {
     const classes = useStyles();
     const featureData = useSWR(apiEndpoints.featureListing, fetcher);
     const animals = useSWR(apiEndpoints.animals, fetcher);
@@ -40,6 +49,7 @@ const AnimalDetails = ({ inputRegister, errors, uploadImages, imageThumbnail, se
     useEffect(() => {
         if (featureData.data) {
             setFeatureListingData(featureData.data);
+            getDynamicValidation(validationGenerator(featureData.data));
         }
     }, [featureData.data]);
 
@@ -56,7 +66,9 @@ const AnimalDetails = ({ inputRegister, errors, uploadImages, imageThumbnail, se
                 return { buttonText: item.action_text, image: baseUrl + item.image.thumbnail };
             });
             setImageThumbnail({ label: result.data[0].action_text, images: images });
+            console.log(result.data);
             setFeatureListingData(result.data);
+            getDynamicValidation(validationGenerator(result.data));
         }
     };
 
@@ -78,7 +90,7 @@ const AnimalDetails = ({ inputRegister, errors, uploadImages, imageThumbnail, se
                     iscompulsory={true}
                     label="पशु चुनें"
                     placeholder="पशु चुनें"
-                    name="pickAnimal"
+                    name="animal"
                     options={dropdownFarmatter(animalsList)}
                     error={errors?.pickAnimal ? true : false}
                     errorMsg={errors?.pickAnimal?.message}
@@ -92,9 +104,10 @@ const AnimalDetails = ({ inputRegister, errors, uploadImages, imageThumbnail, se
                                 iscompulsory={item.is_compulsory}
                                 label={item.action_text}
                                 type="number"
-                                name={item.name}
-                                error={errors[item.name] ? true : false}
-                                errorMsg={errors[item.name]?.message ? item.error : ''}
+                                placeholder={item.hint}
+                                name={item.feature}
+                                error={errors[item.feature] ? true : false}
+                                errorMsg={errors[item.feature]?.message}
                                 inputRegister={inputRegister}
                             />
                         );
@@ -105,10 +118,10 @@ const AnimalDetails = ({ inputRegister, errors, uploadImages, imageThumbnail, se
                                     iscompulsory={item.is_compulsory}
                                     label={item.action_text}
                                     placeholder={item.action_text}
-                                    name={item.name}
+                                    name={item.feature}
                                     options={dropdownFarmatter(item.dict_drop_down)}
-                                    error={errors[item.name] ? true : false}
-                                    errorMsg={errors[item.name]?.message ? item.error : ''}
+                                    error={errors[item.feature] ? true : false}
+                                    errorMsg={errors[item.feature]?.message}
                                     inputRegister={inputRegister}
                                 />
                             </>
@@ -119,10 +132,10 @@ const AnimalDetails = ({ inputRegister, errors, uploadImages, imageThumbnail, se
                                 iscompulsory={item.is_compulsory}
                                 label={item.action_text}
                                 placeholder={item.action_text}
-                                name={item.name}
+                                name={item.feature}
                                 options={dropdownFarmatterIfMaxMinFound(item)}
-                                error={errors[item.name] ? true : false}
-                                errorMsg={errors[item.name]?.message ? item.error : ''}
+                                error={errors[item.feature] ? true : false}
+                                errorMsg={errors[item.feature]?.message}
                                 inputRegister={inputRegister}
                             />
                         );
@@ -133,9 +146,10 @@ const AnimalDetails = ({ inputRegister, errors, uploadImages, imageThumbnail, se
                                     iscompulsory={item.is_compulsory}
                                     label={item.action_text}
                                     as="textarea"
-                                    name={item.name}
-                                    error={errors[item.name] ? true : false}
-                                    errorMsg={errors[item.name]?.message ? item.error : ''}
+                                    placeholder={item.hint}
+                                    name={item.feature}
+                                    error={errors[item.feature] ? true : false}
+                                    errorMsg={errors[item.feature]?.message}
                                     inputRegister={inputRegister}
                                 />
                             </>
@@ -157,6 +171,7 @@ AnimalDetails.propTypes = {
     uploadImages: PropTypes.func,
     imageThumbnail: PropTypes.object,
     setImageThumbnail: PropTypes.func,
+    getDynamicValidation: PropTypes.func,
 };
 
 export default AnimalDetails;

@@ -20,7 +20,6 @@ export const createNewPublicPostAPIcall = async (data) => {
 };
 
 export const getAnimalThumbnailAPIcall = async (id) => {
-    //console.log(id);
     dispatch(spinner(true));
     const result = await API.get(apiEndpoints.featureAnimal + `${id}&point=85.6127226%2C23.5749498`).then((res) => res);
     dispatch(spinner(false));
@@ -37,6 +36,13 @@ export const uploadAnimalImagesAPIcall = async (file) => {
             authorization: 'Token fb9fd71361643c90167ec6a59cb129af4cd9a77f',
         },
     }).then((res) => res);
+    dispatch(spinner(false));
+    return result;
+};
+
+export const getAllDistrictAPIcall = async (id) => {
+    dispatch(spinner(true));
+    const result = await API.get(apiEndpoints.district+id).then((res) => res);
     dispatch(spinner(false));
     return result;
 };

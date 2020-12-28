@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const AUTHORIZATION = 'Authorization';
+export const AUTHORIZATION = 'authorization';
 export const proxy = 'https://cors-anywhere.herokuapp.com/';
 export const API = axios.create({
     baseURL: 'https://dev.farmstock.in/api/v1/',
@@ -16,11 +16,10 @@ export const resetTokenAndLocalStorage = () => {
     localStorage.removeItem('auth');
 };
 export const setAuthrizationToken = () => {
-    const data = localStorage.getItem('auth');
+    const data = localStorage.getItem('token');
     let token = '';
     if (data) {
-        const tokenObject = JSON.parse(data);
-        token = tokenObject.access_token;
+         token = JSON.parse(data);
     }
     authorize(token);
 };

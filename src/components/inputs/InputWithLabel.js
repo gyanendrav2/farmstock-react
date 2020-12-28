@@ -22,17 +22,17 @@ const useStyles = makeStyles({
     input: {
         width: '100%',
         '& ::placeholder': {
-            color: colors.blueLight1,
+            color: colors.primary,
             opacity: 1,
             fontSize: '0.75rem',
         },
     },
-    border: (props) => (props.error ? `solid 1px ${colors.red}` : `solid 1px ${colors.blueLight1}`),
+    border: (props) => (props.error ? `solid 1px ${colors.red}` : `solid 1px ${colors.primary}`),
     '&:focus': {
-        borderColor: (props) => (props.error ? colors.red : colors.blue),
+        borderColor: (props) => (props.error ? colors.red : colors.primary),
     },
     '&:hover': {
-        borderColor: (props) => (props.error ? colors.red : colors.blue),
+        borderColor: (props) => (props.error ? colors.red : colors.primary),
     },
     red: {
         color: colors.red,
