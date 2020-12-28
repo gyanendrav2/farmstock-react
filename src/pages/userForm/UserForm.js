@@ -7,6 +7,7 @@ import { Box, makeStyles, Typography } from '@material-ui/core';
 import UserDetails from './UserDetails';
 import AnimalDetails from './AnimalDetails';
 import { createUser } from '../../helper/createUser';
+import { setAuthrizationToken } from '../../utility/API';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles({
 
 const UserForm = () => {
     localStorage.setItem('token', JSON.stringify('Token fb9fd71361643c90167ec6a59cb129af4cd9a77f'));
+    setAuthrizationToken();
     const classes = useStyles();
     const [validation, setValidation] = useState({});
     const { register, errors, handleSubmit, getValues, reset } = useForm({
