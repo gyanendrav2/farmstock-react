@@ -5,6 +5,10 @@ import CustomButton from './CustomButton';
 import { Box, CardActionArea, CardMedia, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
+    image:{
+        height: '10rem',
+        objectFit: 'cover',
+    },
     input: {
         width: 0,
         height: 0,
@@ -38,7 +42,7 @@ const UploadFileButton = ({ handleFilePicker, label, alt, src }) => {
                     onChange={handleFilePicker}
                 />
 
-                <CardMedia component="img" alt={alt} height="100%" src={src} title={alt} />
+                <CardMedia component="img" alt={alt} height="100%" src={src} title={alt} className={classes.image} />
                 <Box>
                     <CustomButton externalClass={classes.button} label={label} />
                 </Box>
