@@ -12,7 +12,7 @@ import { apiEndpoints } from '../../utility/apiEndpoints';
 import ImageCard from '../../components/card/ImageCard';
 import { baseUrl } from '../../utility/baseurls';
 import { validationGenerator } from '../../helper/validationGenerator';
-
+import TextArea from '../../components/inputs/TextArea';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -142,7 +142,17 @@ const AnimalDetails = ({
                     } else if (item.feature_type == 'string') {
                         return (
                             <>
-                                <InputWithLabel
+                                {/* <InputWithLabel
+                                    iscompulsory={item.is_compulsory}
+                                    label={item.action_text}
+                                    as="textarea"
+                                    placeholder={item.hint}
+                                    name={item.feature}
+                                    error={errors[item.feature] ? true : false}
+                                    errorMsg={errors[item.feature]?.message}
+                                    inputRegister={inputRegister}
+                                /> */}
+                                <TextArea
                                     iscompulsory={item.is_compulsory}
                                     label={item.action_text}
                                     as="textarea"
