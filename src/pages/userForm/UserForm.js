@@ -7,8 +7,8 @@ import { Box, makeStyles, Typography } from '@material-ui/core';
 import UserDetails from './UserDetails';
 import AnimalDetails from './AnimalDetails';
 import { createUser } from '../../helper/createUser';
-import CongratsPage from '../congo_page';
 import { setAuthrizationToken } from '../../utility/API';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -24,11 +24,14 @@ const UserForm = () => {
     localStorage.setItem('token', JSON.stringify('Token fb9fd71361643c90167ec6a59cb129af4cd9a77f'));
     setAuthrizationToken();
     const classes = useStyles();
+    const history = useHistory();
     const [validation, setValidation] = useState({});
     const { register, errors, handleSubmit, getValues, reset } = useForm({
         resolver: yupResolver(userFormValidationGenerator(validation)),
     });
     const [imagesUploaded, setImagesUploaded] = useState([]);
+    const [imagesLinks, setImagesLinks] = useState([]);
+    const [moreInfo, setMoreInfo] = useState({});
     const [imageThumbnail, setImageThumbnail] = useState({ label: '', images: [] });
 
     const handleImageUploaded = (imageId) => {
@@ -37,17 +40,32 @@ const UserForm = () => {
         setImagesUploaded(data);
     };
 
-    const submit = async (data) => {
-        await createUser(data, imagesUploaded, setImagesUploaded, reset, setImageThumbnail);
+    const handleImageLinks = (link) => {
+        const data = [...imagesUploaded];
+        data.push(link);
+        setImagesLinks(data);
     };
-    console.log(errors);
+
+    const handleFullInfo = (info) => {
+        setMoreInfo({ ...moreInfo, ...info });
+    };
+
+    const submit = async (data) => {
+        await createUser(data, imagesUploaded, setImagesUploaded, reset, setImageThumbnail, imagesLinks, moreInfo, history);
+    };
+
     return (
         <Box className={classes.wrapper}>
             <form onSubmit={handleSubmit(submit)}>
                 <Typography className="text-center p-2">
                     Your post is seen on the Krishify network whole, this will increase the your chance
                 </Typography>
-                <UserDetails inputRegister={register} getValues={getValues} errors={errors} />
+                <UserDetails
+                    inputRegister={register}
+                    getValues={getValues}
+                    getFullInfo={handleFullInfo}
+                    errors={errors}
+                />
                 <AnimalDetails
                     inputRegister={register}
                     uploadImages={handleImageUploaded}
@@ -55,10 +73,11 @@ const UserForm = () => {
                     imageThumbnail={imageThumbnail}
                     setImageThumbnail={setImageThumbnail}
                     getDynamicValidation={setValidation}
+                    getImagesLinks={handleImageLinks}
+                    getFullInfo={handleFullInfo}
                     errors={errors}
                 />
             </form>
-            <CongratsPage />
         </Box>
     );
 };

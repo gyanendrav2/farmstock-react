@@ -21,6 +21,7 @@ const useStyles = makeStyles({
     },
     input: {
         width: '100%',
+        color: colors.primary,
         '& ::placeholder': {
             color: colors.primary,
             opacity: 1,

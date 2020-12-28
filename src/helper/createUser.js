@@ -1,7 +1,18 @@
 import { toast } from 'react-toastify';
 import { createNewUserAPIcall, createNewPublicPostAPIcall } from '../redux/actions/animalActions';
+import { routeEndpoints } from '../routes/routeEndpoints';
 
-export const createUser = async (data, imageUploaded, resetUploaded, resetForm, resetImage) => {
+export const createUser = async (
+    data,
+    imageUploaded,
+    resetUploaded,
+    resetForm,
+    resetImage,
+    uploadedImages,
+    moreInfo,
+    history
+) => {
+    const information = { ...data, ...moreInfo };
     const createUserData = {
         full_name: data.userName,
         phone_number: data.phoneNumber,
@@ -20,15 +31,21 @@ export const createUser = async (data, imageUploaded, resetUploaded, resetForm, 
                 user: result.data.id,
                 ...data,
             };
-         
-
-            console.log("postAnimal", postAnimal)
             const postResult = await createNewPublicPostAPIcall(postAnimal);
             if (postResult.data) {
                 toast.success('Your post is successfully submitted.');
                 resetUploaded([]);
                 resetImage({ label: '', images: [] });
                 resetForm();
+                history.push({
+                    pathname: routeEndpoints.congratulation,
+                    state: {
+                        info: {
+                            images: uploadedImages,
+                            userInfo: information,
+                        },
+                    },
+                });
             } else {
                 toast.success('Failed! something went wrong.');
             }

@@ -14,6 +14,7 @@ const useStyles = makeStyles({
             fontWeight: 400,
             borderRadius: '8px',
             backgroundColor: colors.white,
+            color: (props) => (props.error ? `${colors.red}` : `${colors.primary}`),
             border: (props) => `solid 1px ${props.error ? colors.red : colors.primary}`,
             '&::placeholder': {
                 color: (props) => (props.error ? `${colors.red}` : `${colors.primary}`),

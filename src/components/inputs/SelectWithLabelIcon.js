@@ -1,11 +1,9 @@
 import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
-import { ArrowDropDown } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { colors } from '../../theme/colors';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import cn from 'classnames';
-import { icons } from '../../assets/icons';
 
 const useStyles = makeStyles({
     container: {
@@ -48,6 +46,7 @@ const useStyles = makeStyles({
         outline: 'none',
         padding: '0.5rem',
         color: colors.primary,
+        backgroundColor: colors.white,
         '&:first-child': {
             color: (props) => (props.error ? colors.red : colors.blue),
         },
@@ -74,7 +73,6 @@ const SelectWithLabelIcon = ({
     label,
     error,
     errorMsg,
-    icon,
     inputRegister,
     iscompulsory,
     placeholder,
