@@ -6,7 +6,7 @@ import InputWithLabel from '../../components/inputs/InputWithLabel';
 import SelectWithLabelIcon from '../../components/inputs/SelectWithLabelIcon';
 import useSWR from 'swr';
 import { apiEndpoints } from '../../utility/apiEndpoints';
-import { fetcher, getAllDistrictAPIcall } from '../../redux/actions/animalActions';
+import { fetcher, getAllBlocksAPIcall, getAllDistrictAPIcall } from '../../redux/actions/animalActions';
 import { dropdownFarmatter } from '../../helper/dropdownFarmatter';
 
 const useStyles = makeStyles({
@@ -23,11 +23,20 @@ const UserDetails = ({ inputRegister, errors }) => {
     const classes = useStyles();
     const states = useSWR(apiEndpoints.states, fetcher);
     const [district, setDistrict] = useState([]);
+    const [blocks, setBlocks] = useState([]);
+
 
     const handleState = async (e) => {
         const result = await getAllDistrictAPIcall(e.target.value);
-        if(result.status===200){
+        if (result.status === 200) {
             setDistrict(dropdownFarmatter(result.data.results));
+        }
+    };
+
+    const handleDistrict = async (e) => {
+        const result = await getAllBlocksAPIcall(e.target.value);
+        if (result.status === 200) {
+            setBlocks(dropdownFarmatter(result.data.results));
         }
     };
 
@@ -66,7 +75,7 @@ const UserDetails = ({ inputRegister, errors }) => {
                     iscompulsory={true}
                     label="State"
                     placeholder="Select State"
-                    // name="state"
+                    name="state"
                     options={dropdownFarmatter(states?.data?.results ? states?.data?.results : [])}
                     onChange={handleState}
                     error={errors.state ? true : false}
@@ -77,8 +86,19 @@ const UserDetails = ({ inputRegister, errors }) => {
                     iscompulsory={true}
                     label="District"
                     placeholder="Select District"
-                    // name="district"
+                    name="district"
                     options={district}
+                    onChange={handleDistrict}
+                    error={errors.state ? true : false}
+                    errorMsg={errors.state?.message}
+                    inputRegister={inputRegister}
+                />
+                 <SelectWithLabelIcon
+                    iscompulsory={true}
+                    label="Block"
+                    placeholder="Select Block"
+                    name="block_id"
+                    options={blocks}
                     error={errors.state ? true : false}
                     errorMsg={errors.state?.message}
                     inputRegister={inputRegister}
