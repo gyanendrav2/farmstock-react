@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     },
 });
 
-const UploadFileButton = ({ handleFilePicker, label, alt, src }) => {
+const UploadFileButton = ({ handleFilePicker, label, src }) => {
     const classes = useStyles();
     const input = createRef();
     const handleTrigger = () => {
