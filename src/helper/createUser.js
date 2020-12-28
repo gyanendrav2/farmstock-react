@@ -9,21 +9,18 @@ export const createUser = async (data, imageUploaded, resetUploaded, resetForm, 
     if (imageUploaded.length) {
         const result = await createNewUserAPIcall(createUserData);
         if (result.status === 200) {
+            delete data.userName;
+            delete data.phoneNumber;
+            delete data.location;
             const postAnimal = {
-                animal: data.pickAnimal,
                 location: '85.7119417, 23.5330837',
                 images: imageUploaded,
-                breed: data.Breed,
-                pregnancy_count: data['Pregnancy Count'],
-                age: data.Age,
-                milking_current: data['Current Milking'],
-                milking_capacity: data['Milking Capacity'],
-                rate: data.Rate,
-                pregnancy_month: data.Pregnancy_Month,
-                calf_status: data['Calf Status'],
-                more_info: data.more_info,
                 user: result.data.id,
+                ...data,
             };
+         
+
+            console.log("postAnimal", postAnimal)
             const postResult = await createNewPublicPostAPIcall(postAnimal);
             if (postResult.data) {
                 toast.success('Your post is successfully submitted.');

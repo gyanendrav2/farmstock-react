@@ -5,6 +5,7 @@ import React from 'react';
 import { colors } from '../../theme/colors';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import cn from 'classnames';
+import { icons } from '../../assets/icons';
 
 const useStyles = makeStyles({
     container: {
@@ -47,10 +48,6 @@ const useStyles = makeStyles({
         outline: 'none',
         padding: '0.5rem',
         color: colors.primary,
-        '-webkit-appearance': 'none',
-        '-moz-appearance': 'none',
-        'text-indent': '1px',
-        'text-overflow': '',
         '&:first-child': {
             color: (props) => (props.error ? colors.red : colors.blue),
         },
@@ -100,7 +97,7 @@ const SelectWithLabelIcon = ({
                 className={classes.wrapper}
             >
                 <Box className={classes.inputContainer}>
-                    <select ref={inputRegister} className={classes.input} error={error} {...props}>
+                    <select ref={inputRegister} className={cn(classes.input)} error={error} {...props}>
                         <option value="" hidden>
                             --{placeholder}--
                         </option>
@@ -111,7 +108,7 @@ const SelectWithLabelIcon = ({
                         ))}
                     </select>
                 </Box>
-                <Grid
+                {/* <Grid
                     container
                     ref={inputRegister}
                     error={errorMsg?.message ? true : false}
@@ -120,7 +117,7 @@ const SelectWithLabelIcon = ({
                     className={classes.iconContainer}
                 >
                     {icon ? icon : <ArrowDropDown className={classes.icon} />}
-                </Grid>
+                </Grid> */}
             </Grid>
             <ErrorMessage errorMsg={errorMsg} />
         </Box>

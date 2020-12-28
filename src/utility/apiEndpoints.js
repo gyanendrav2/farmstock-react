@@ -4,5 +4,8 @@ export const apiEndpoints = {
     createUser: 'auth/create-user',
     publicPost: 'listing/cattle//public-post',
     featureAnimal: 'listing/cattle/feature?animal=',
-    listingCattleImage: '/listing/cattle/image'
+    listingCattleImage: '/listing/cattle/image',
+    states: 'addresses/states',
+    district: '/addresses/districts?state='
+
 };
