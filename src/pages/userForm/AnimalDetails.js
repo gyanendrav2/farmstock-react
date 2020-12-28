@@ -95,8 +95,8 @@ const AnimalDetails = ({
                     placeholder="पशु चुनें"
                     name="animal"
                     options={dropdownFarmatter(animalsList)}
-                    error={errors?.pickAnimal ? true : false}
-                    errorMsg={errors?.pickAnimal?.message}
+                    error={errors?.animal ? true : false}
+                    errorMsg={errors?.animal?.message}
                     inputRegister={inputRegister}
                     onChange={handleAnimal}
                 />
