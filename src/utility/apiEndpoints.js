@@ -7,5 +7,6 @@ export const apiEndpoints = {
     listingCattleImage: '/listing/cattle/image',
     states: 'addresses/states',
     district: '/addresses/districts?state=',
-    block: '/addresses/blocks?district='
+    block: '/addresses/blocks?district=',
+    postInfo: 'listing/cattle/post/'
 };

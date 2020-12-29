@@ -20,19 +20,19 @@ const useStyles = makeStyles({
     },
     input: {
         width: '100%',
-        color: colors.primary,
+        color: colors.black,
         '& ::placeholder': {
             color: colors.primary,
             opacity: 1,
             fontSize: '0.75rem',
         },
     },
-    border: (props) => (props.error ? `solid 1px ${colors.red}` : `solid 1px ${colors.primary}`),
+    border: (props) => (props.error ? `solid 1px ${colors.red}` : `solid 1px ${colors.black}`),
     '&:focus': {
-        borderColor: (props) => (props.error ? colors.red : colors.primary),
+        borderColor: (props) => (props.error ? colors.red : colors.black),
     },
     '&:hover': {
-        borderColor: (props) => (props.error ? colors.red : colors.primary),
+        borderColor: (props) => (props.error ? colors.red : colors.black),
     },
     red: {
         color: colors.red,

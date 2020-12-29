@@ -1,3 +1,4 @@
+import { getLatLong } from '../../helper/getLattitudeLongitude';
 import { API } from '../../utility/API';
 import { apiEndpoints } from '../../utility/apiEndpoints';
 import { dispatch } from '../store/Store';
@@ -29,12 +30,12 @@ export const getAnimalThumbnailAPIcall = async (id) => {
 };
 
 export const uploadAnimalImagesAPIcall = async (file) => {
-    dispatch(spinner(true));
+    // dispatch(spinner(true));
     const data = new FormData();
     data.append('image', file, file.name);
     data.append('image_type', '499f6c50-230d-4578-aacb-ea9ae2878619');
     const result = await API.post(apiEndpoints.listingCattleImage, data).then((res) => res);
-    dispatch(spinner(false));
+    // dispatch(spinner(false));
     return result;
 };
 
@@ -48,6 +49,13 @@ export const getAllDistrictAPIcall = async (id) => {
 export const getAllBlocksAPIcall = async (id) => {
     dispatch(spinner(true));
     const result = await API.get(apiEndpoints.block + id).then((res) => res);
+    dispatch(spinner(false));
+    return result;
+};
+
+export const getAllPostInfoAPIcall = async (id) => {
+    dispatch(spinner(true));
+    const result = await API.get(apiEndpoints.postInfo + id+'?=&point='+getLatLong()).then((res) => res);
     dispatch(spinner(false));
     return result;
 };

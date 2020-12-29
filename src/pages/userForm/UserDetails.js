@@ -9,18 +9,17 @@ import { apiEndpoints } from '../../utility/apiEndpoints';
 import { fetcher, getAllBlocksAPIcall, getAllDistrictAPIcall } from '../../redux/actions/animalActions';
 import { dropdownFarmatter } from '../../helper/dropdownFarmatter';
 import { filterValueById } from '../../helper/filterValueById';
-import { images } from '../../assets/images';
 
 const useStyles = makeStyles({
     wrapper: {
         backgroundColor: colors.lighterPrimary,
-        backgroundImage: `url(${images.formbg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: '100% 100%',
+        // backgroundImage: `url(${images.formbg})`,
+        // backgroundSize: 'cover',
+        // backgroundPosition: '100% 100%',
         padding: '1.5rem',
-        '@media (min-width: 501px)': {
-            backgroundImage: 'none',
-        },
+        // '@media (min-width: 501px)': {
+        //     backgroundImage: 'none',
+        // },
     },
     fieldWrapper: {
         maxWidth: '25rem',

@@ -18,17 +18,17 @@ const useStyles = makeStyles({
         fontWeight: 400,
         borderRadius: '4px',
         backgroundColor: colors.white,
-        border: (props) => (props.error ? `solid 1px ${colors.red}` : `solid 1px ${colors.primary}`),
+        border: (props) => (props.error ? `solid 1px ${colors.red}` : `solid 1px ${colors.black}`),
         '&:focus': {
-            borderColor: (props) => (props.error ? colors.red : colors.primary),
+            borderColor: (props) => (props.error ? colors.red : colors.black),
         },
         '&:hover': {
-            borderColor: (props) => (props.error ? colors.red : colors.primary),
+            borderColor: (props) => (props.error ? colors.red : colors.black),
         },
     },
     iconContainer: {
         width: '10%',
-        color: (props) => (props.error ? colors.red : colors.primary),
+        color: (props) => (props.error ? colors.red : colors.black),
     },
     label: {
         marginBottom: '0.5rem',
@@ -38,6 +38,9 @@ const useStyles = makeStyles({
     inputContainer: {
         width: '100%',
     },
+    fistChild:{
+        color: (props) => (props.error ? colors.red : colors.darkGray)+'!important',
+    },
     input: {
         width: '100%',
         fontFamily: 'aino-regular',
@@ -45,16 +48,16 @@ const useStyles = makeStyles({
         border: 'none',
         outline: 'none',
         padding: '0.5rem',
-        color: colors.primary,
+        color: colors.black,
         backgroundColor: colors.white,
-        '&:first-child': {
-            color: (props) => (props.error ? colors.red : colors.blue),
-        },
-        '& ::placeholder': {
-            color: (props) => (props.error ? colors.red : colors.blue),
-            opacity: 1,
-            fontSize: '0.75rem',
-        },
+        // '&:first-child': {
+        //     color: (props) => (props.error ? colors.red : colors.darkGray)+'!important',
+        // },
+        // '& ::placeholder': {
+        //     color: (props) => (props.error ? colors.red : colors.darkGray),
+        //     opacity: 1,
+        //     fontSize: '0.75rem',
+        // },
         '& ::-ms-expand': {
             display: 'none',
         },
@@ -63,7 +66,7 @@ const useStyles = makeStyles({
         },
     },
     icon: {
-        color: (props) => (props.error ? colors.red : colors.primary),
+        color: (props) => (props.error ? colors.red : colors.darkGray),
     },
     red: {
         color: colors.red,
@@ -96,7 +99,7 @@ const SelectWithLabelIcon = ({
             >
                 <Box className={classes.inputContainer}>
                     <select ref={inputRegister} className={cn(classes.input)} error={error} {...props}>
-                        <option value="" hidden>
+                        <option value="" hidden className={classes.fistChild}>
                             --{placeholder}--
                         </option>
                         {options.map((item, i) => (

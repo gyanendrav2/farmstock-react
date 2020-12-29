@@ -11,6 +11,7 @@ import { setAuthrizationToken } from '../../utility/API';
 import { useHistory } from 'react-router';
 import { images } from '../../assets/images';
 import { colors } from '../../theme/colors';
+import { getLocation } from '../../helper/getLattitudeLongitude';
 
 const useStyles = makeStyles({
     rootWrapper: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
         margin: 'auto',
         backgroundColor: colors.lighterGray,
         boxShadow: '0 0 20px -1px rgba(0,0,0,0.3)',
+        paddingTop: '1rem',
         '@media (max-width:500px)': {
             maxWidth: '100%',
         },
@@ -56,6 +58,7 @@ const UserForm = () => {
     setAuthrizationToken();
     const classes = useStyles();
     const history = useHistory();
+    getLocation()
     const [validation, setValidation] = useState({});
     const { register, errors, handleSubmit, getValues, reset } = useForm({
         resolver: yupResolver(userFormValidationGenerator(validation)),
@@ -117,6 +120,7 @@ const UserForm = () => {
                         getDynamicValidation={setValidation}
                         getImagesLinks={handleImageLinks}
                         getFullInfo={handleFullInfo}
+                        resetFields={reset}
                         errors={errors}
                     />
                 </form>

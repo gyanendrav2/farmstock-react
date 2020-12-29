@@ -2,8 +2,9 @@ import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import CustomButton from './CustomButton';
-import { Box, CardActionArea, CardMedia, Grid } from '@material-ui/core';
+import { Box, CardActionArea, Grid } from '@material-ui/core';
 import ResponsiveImage from '../responsiveImage/ResponsiveImage';
+import { colors } from '../../theme/colors';
 
 const useStyles = makeStyles({
     image:{
@@ -20,6 +21,7 @@ const useStyles = makeStyles({
         padding: '0.3rem',
         fontSize: '0.8rem',
         textTransform: 'capitalize',
+        backgroundColor: colors.lightGreen
     },
 });
 
