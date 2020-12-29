@@ -13,23 +13,38 @@ import ImageCard from '../../components/card/ImageCard';
 import { baseUrl } from '../../utility/baseurls';
 import { validationGenerator } from '../../helper/validationGenerator';
 import TextArea from '../../components/inputs/TextArea';
+import { images } from '../../assets/images';
 
 const useStyles = makeStyles({
     wrapper: {
+        backgroundImage: `url(${images.formbg})`,
         backgroundColor: colors.lighterPrimary,
+        backgroundSize: 'cover',
+        backgroundPosition: '100% 100%',
         padding: '1.5rem',
+        '@media (min-width: 501px)': {
+            backgroundImage: 'none',
+        },
     },
     fieldWrapper: {
         maxWidth: '25rem',
+        margin: 'auto',
     },
     title: {
         fontSize: '2rem',
         fontWeight: 500,
         marginBottom: '2rem',
+        textAlign: 'center',
+        '@media (max-width:649px)': {
+            fontSize: '1rem',
+            fontWeight: 600,
+        },
     },
     button: {
         marginTop: '1rem',
-        width: '7rem',
+        width: '100%',
+        fontSize: '1rem',
+        fontWeight: 600,
     },
 });
 
@@ -88,7 +103,7 @@ const AnimalDetails = ({
     return (
         <Box className={classes.wrapper}>
             <Box className={classes.fieldWrapper}>
-                <Typography className={classes.title}>Cattle Details</Typography>
+                <Typography className={classes.title}>कृपया अपने पशु की डिटेल भरें </Typography>
                 <SelectWithLabelIcon
                     iscompulsory={true}
                     label="पशु चुनें"
@@ -171,7 +186,7 @@ const AnimalDetails = ({
                         return <ImageCard imageThumbnail={imageThumbnail} handleFileUpload={handleFileUpload} />;
                     }
                 })}
-                <CustomButton externalClass={classes.button} type="submit" label="Submit" />
+                <CustomButton externalClass={classes.button} type="submit" label="डिटेल अपलोड करें" />
             </Box>
         </Box>
     );

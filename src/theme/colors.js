@@ -9,8 +9,10 @@ export const colors = {
     darkGray: '#5F5F5F',
     darkPrimary: '#145DFF',
     borderGray: '#bfbfbf',
-    lighterPrimary: '#f3f7ff',
+    lighterPrimary: '#f3f4f7',
     lightBlack: 'rgba(0, 0, 0, 0.42)',
     red: "#ff0000",
-    lightyellow: '#ffffcc'
+    lightyellow: '#ffffcc',
+    lightGreen: '#c8fbbf',
+    lighterGray: '#dbddf5'
 };

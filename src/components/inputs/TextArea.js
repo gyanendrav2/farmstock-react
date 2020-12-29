@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     label: {
         marginBottom: '0.5rem',
         fontSize: '0.85rem',
-        fontWeight: 400,
+        fontWeight: 600,
         width: '100%',
     },
     input: {

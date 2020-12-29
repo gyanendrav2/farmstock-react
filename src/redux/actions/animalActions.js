@@ -1,7 +1,7 @@
 import { API } from '../../utility/API';
 import { apiEndpoints } from '../../utility/apiEndpoints';
 import { dispatch } from '../store/Store';
-import { spinner } from './uiAction';
+import { loaderMessages, spinner } from './uiAction';
 
 export const fetcher = (url) => API.get(url).then((res) => res.data);
 
@@ -14,7 +14,9 @@ export const createNewUserAPIcall = async (data) => {
 
 export const createNewPublicPostAPIcall = async (data) => {
     dispatch(spinner(true));
+    dispatch(loaderMessages(['कृपया प्रतीक्षा करें 🙏', 'बिक्री के लिए आपके पशु 🐄 🐃  की पोस्ट बनाई जा रही है ']));
     const result = await API.post(apiEndpoints.publicPost, data).then((res) => res);
+    dispatch(loaderMessages(null));
     dispatch(spinner(false));
     return result;
 };
