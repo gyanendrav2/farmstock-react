@@ -98,9 +98,6 @@ const CongratsPage = () => {
         <Box className={classes.container}>
             <img className={classes.image} src={images.celebration} />
             <Typography className={classes.heading}>{state.username} जी, बधाई हो </Typography>
-            {/* <Typography className={classes.subHeaing}>
-           
-            </Typography> */}
             <Box className={classes.imageBorder}>
                 <Typography className={classes.heading}>
                 Krishify पर बिक्री के लिए आपके पशु की पोस्ट बन गयी है
