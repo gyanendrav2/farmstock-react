@@ -53,6 +53,11 @@ const useStyles = makeStyles({
         paddingLeft: '1rem',
         lineHeight: '2rem',
         marginTop: '1rem',
+        '@media (max-width:739px)': {
+            fontSize: '1.2rem',
+            marginTop: 0,
+            marginBottom: 0,
+        },
     },
     address: {
         fontSize: '1.5rem',
@@ -61,6 +66,10 @@ const useStyles = makeStyles({
         paddingLeft: '1rem',
         lineHeight: '2rem',
         marginTop: '1rem',
+        '@media (max-width:739px)': {
+            fontSize: '1rem',
+            marginTop: 0,
+        },
     },
     image: {
         position: 'relative',
