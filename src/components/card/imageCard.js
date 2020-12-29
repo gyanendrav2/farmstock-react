@@ -10,6 +10,7 @@ const useStyles = makeStyles({
     title: {
         marginTop: '1rem',
         marginBottom: '1rem',
+        fontWeight: 600
     },
 });
 
@@ -17,7 +18,6 @@ const ImageCard = ({ imageThumbnail, handleFileUpload }) => {
     const classes = useStyles();
     return (
         <Box>
-            <h6>Cattle Image</h6>
             <Typography className={classes.title}>{imageThumbnail.label}</Typography>
 
             <Grid container spacing={2} className={classes.wrapper}>

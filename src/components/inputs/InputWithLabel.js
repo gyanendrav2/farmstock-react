@@ -4,7 +4,6 @@ import React from 'react';
 import Input from '.';
 import { colors } from '../../theme/colors';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import cn from 'classnames';
 
 const useStyles = makeStyles({
     container: {
@@ -16,7 +15,7 @@ const useStyles = makeStyles({
     label: {
         marginBottom: '0.5rem',
         fontSize: '0.85rem',
-        fontWeight: 400,
+        fontWeight: 600,
         width: '100%',
     },
     input: {
@@ -45,7 +44,7 @@ const InputWithLabel = ({ label, inputRegister, error, iscompulsory, errorMsg, .
     return (
         <Box className={classes.container}>
             <Typography className={classes.label}>
-                {label} {iscompulsory && <span className={cn({ [classes.red]: error })}>*</span>}
+                {label} {iscompulsory && <span className={classes.red}>*</span>}
             </Typography>
             <Input error={error} inputRegister={inputRegister} {...props} />
             {iscompulsory == true ? <ErrorMessage errorMsg={errorMsg} /> : null}

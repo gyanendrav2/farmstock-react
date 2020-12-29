@@ -16,7 +16,7 @@ const useStyles = makeStyles({
         margin: 0,
         fontSize: '16px',
         fontWeight: 400,
-        borderRadius: '8px',
+        borderRadius: '4px',
         backgroundColor: colors.white,
         border: (props) => (props.error ? `solid 1px ${colors.red}` : `solid 1px ${colors.primary}`),
         '&:focus': {
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     label: {
         marginBottom: '0.5rem',
         fontSize: '0.85rem',
-        fontWeight: 400,
+        fontWeight: 600,
     },
     inputContainer: {
         width: '100%',
@@ -83,7 +83,7 @@ const SelectWithLabelIcon = ({
     return (
         <Box className={classes.container}>
             <Typography className={classes.label}>
-                {label} {iscompulsory && <span className={cn({ [classes.red]: error })}>*</span>}
+                {label} {iscompulsory && <span className={classes.red}>*</span>}
             </Typography>
             <Grid
                 container

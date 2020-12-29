@@ -9,14 +9,32 @@ import { apiEndpoints } from '../../utility/apiEndpoints';
 import { fetcher, getAllBlocksAPIcall, getAllDistrictAPIcall } from '../../redux/actions/animalActions';
 import { dropdownFarmatter } from '../../helper/dropdownFarmatter';
 import { filterValueById } from '../../helper/filterValueById';
+import { images } from '../../assets/images';
 
 const useStyles = makeStyles({
     wrapper: {
-        backgroundColor: colors.lightyellow,
+        backgroundColor: colors.lighterPrimary,
+        backgroundImage: `url(${images.formbg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: '100% 100%',
         padding: '1.5rem',
+        '@media (min-width: 501px)': {
+            backgroundImage: 'none',
+        },
     },
     fieldWrapper: {
         maxWidth: '25rem',
+        margin: 'auto',
+    },
+    heading: {
+        fontSize: '2rem',
+        fontWeight: 500,
+        marginBottom: '2rem',
+        textAlign: 'center',
+        '@media (max-width:649px)': {
+            fontSize: '1rem',
+            fontWeight: 600,
+        },
     },
 });
 
@@ -66,11 +84,11 @@ const UserDetails = ({ inputRegister, errors, getFullInfo }) => {
     return (
         <Box className={classes.wrapper}>
             <Box className={classes.fieldWrapper}>
-                <Typography className="text-center mb-4 mt4"> User Details</Typography>
+                <Typography className={classes.heading}>कृपया अपनी डिटेल भरें </Typography>
 
                 <InputWithLabel
                     iscompulsory={true}
-                    label="User Name"
+                    label="आपका नाम"
                     name="userName"
                     error={errors?.userName ? true : false}
                     errorMsg={errors?.userName?.message}
@@ -78,7 +96,7 @@ const UserDetails = ({ inputRegister, errors, getFullInfo }) => {
                 />
                 <InputWithLabel
                     iscompulsory={true}
-                    label="Phone Number"
+                    label="आपका मोबाइल नंबर"
                     name="phoneNumber"
                     error={errors?.userName ? true : false}
                     errorMsg={errors?.phoneNumber?.message}
@@ -96,8 +114,8 @@ const UserDetails = ({ inputRegister, errors, getFullInfo }) => {
 
                 <SelectWithLabelIcon
                     iscompulsory={true}
-                    label="State"
-                    placeholder="Select State"
+                    label="आपका राज्य"
+                    placeholder="राज्य चुनें"
                     name="state"
                     options={dropdownFarmatter(states?.data?.results ? states?.data?.results : [])}
                     onChange={handleState}
@@ -107,8 +125,8 @@ const UserDetails = ({ inputRegister, errors, getFullInfo }) => {
                 />
                 <SelectWithLabelIcon
                     iscompulsory={true}
-                    label="District"
-                    placeholder="Select District"
+                    label="आपका जिला"
+                    placeholder="जिला चुनें"
                     name="district"
                     options={district}
                     onChange={handleDistrict}
@@ -118,8 +136,8 @@ const UserDetails = ({ inputRegister, errors, getFullInfo }) => {
                 />
                 <SelectWithLabelIcon
                     iscompulsory={true}
-                    label="Block"
-                    placeholder="Select Block"
+                    label="आपका ब्लॉक"
+                    placeholder="ब्लॉक चुनें"
                     name="block_id"
                     options={blocks}
                     onChange={handleBlock}
@@ -127,8 +145,6 @@ const UserDetails = ({ inputRegister, errors, getFullInfo }) => {
                     errorMsg={errors.state?.message}
                     inputRegister={inputRegister}
                 />
-
-                <Typography>Your location is Rampur, Dumli</Typography>
             </Box>
         </Box>
     );
