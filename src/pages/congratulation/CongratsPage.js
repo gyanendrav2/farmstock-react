@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     heading: {
         marginTop: '0.5rem',
         marginBottom: '1rem',
-        fontSize: 14,
+        fontSize: '2rem',
         textAlign: 'center',
         fontWeight: 'bold',
         width: '100%',
@@ -27,7 +27,8 @@ const useStyles = makeStyles({
         width: '100%',
     },
     subHeaing: {
-        fontSize: 14,
+        fontSize: '1rem',
+        textAlign:'center',
         marginLeft: 8,
         marginBottom: '1rem',
     },
@@ -96,13 +97,13 @@ const CongratsPage = () => {
     return (
         <Box className={classes.container}>
             <img className={classes.image} src={images.celebration} />
-            <Typography className={classes.heading}>{state.username}, Congratulations</Typography>
-            <Typography className={classes.subHeaing}>
-                Your post is publicy available. you will get call from the customers soon
-            </Typography>
+            <Typography className={classes.heading}>{state.username} जी, बधाई हो </Typography>
+            {/* <Typography className={classes.subHeaing}>
+           
+            </Typography> */}
             <Box className={classes.imageBorder}>
                 <Typography className={classes.heading}>
-                    This, {state.animal} is available for sale on Krishify
+                Krishify पर बिक्री के लिए आपके पशु की पोस्ट बन गयी है
                 </Typography>
                 <img className={classes.imageBorder} src={state.animalPhoto} />
                 <Typography className={classes.subHeaing}>

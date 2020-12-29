@@ -12,7 +12,7 @@ const useStyles = makeStyles({
             margin: 0,
             fontSize: '1rem',
             fontWeight: 400,
-            borderRadius: '8px',
+            borderRadius: '4px',
             backgroundColor: colors.white,
             color: (props) => (props.error ? `${colors.red}` : `${colors.primary}`),
             border: (props) => `solid 1px ${props.error ? colors.red : colors.primary}`,

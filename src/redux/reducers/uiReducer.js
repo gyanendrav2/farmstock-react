@@ -2,6 +2,7 @@ import { LOADER } from '../actionTypes/uiTypes';
 
 const initialState = {
     loader: false,
+    messages: null
 };
 
 export const uiReducer = (state = initialState, action) => {

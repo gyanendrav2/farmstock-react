@@ -9,13 +9,44 @@ import AnimalDetails from './AnimalDetails';
 import { createUser } from '../../helper/createUser';
 import { setAuthrizationToken } from '../../utility/API';
 import { useHistory } from 'react-router';
+import { images } from '../../assets/images';
+import { colors } from '../../theme/colors';
 
 const useStyles = makeStyles({
+    rootWrapper: {
+        paddingTop: '1rem',
+        paddingBottom: '1rem',
+        backgroundImage: `url(${images.formbg})`,
+        '@media (max-width: 500px)': {
+            backgroundImage: 'none',
+            paddingTop: 0,
+            paddingBottom: 0,
+        },
+    },
     wrapper: {
         maxWidth: '70%',
         margin: 'auto',
+        backgroundColor: colors.lighterGray,
+        boxShadow: '0 0 20px -1px rgba(0,0,0,0.3)',
         '@media (max-width:500px)': {
             maxWidth: '100%',
+        },
+    },
+    heading: {
+        fontSize: '2rem',
+        textAlign: 'center',
+        fontWeight: 600,
+        '@media (max-width:649px)': {
+            fontSize: '1rem',
+        },
+    },
+    subHeading: {
+        fontSize: '1rem',
+        textAlign: 'center',
+        fontWeight: 500,
+        paddingBottom: '1rem',
+        '@media (max-width:649px)': {
+            fontSize: '0.8rem',
         },
     },
 });
@@ -51,33 +82,45 @@ const UserForm = () => {
     };
 
     const submit = async (data) => {
-        await createUser(data, imagesUploaded, setImagesUploaded, reset, setImageThumbnail, imagesLinks, moreInfo, history);
+        await createUser(
+            data,
+            imagesUploaded,
+            setImagesUploaded,
+            reset,
+            setImageThumbnail,
+            imagesLinks,
+            moreInfo,
+            history
+        );
     };
 
     return (
-        <Box className={classes.wrapper}>
-            <form onSubmit={handleSubmit(submit)}>
-                <Typography className="text-center p-2">
-                    Your post is seen on the Krishify network whole, this will increase the your chance
+        <Box className={classes.rootWrapper}>
+            <Box className={classes.wrapper}>
+                <Typography className={classes.heading}>Krishify ऑनलाइन पशु हाट में आपका स्वागत है</Typography>
+                <Typography className={classes.subHeading}>
+                    पशु बेचने के लिए कृपया नीचे की सभी जानकारी भर दें
                 </Typography>
-                <UserDetails
-                    inputRegister={register}
-                    getValues={getValues}
-                    getFullInfo={handleFullInfo}
-                    errors={errors}
-                />
-                <AnimalDetails
-                    inputRegister={register}
-                    uploadImages={handleImageUploaded}
-                    getValues={getValues}
-                    imageThumbnail={imageThumbnail}
-                    setImageThumbnail={setImageThumbnail}
-                    getDynamicValidation={setValidation}
-                    getImagesLinks={handleImageLinks}
-                    getFullInfo={handleFullInfo}
-                    errors={errors}
-                />
-            </form>
+                <form onSubmit={handleSubmit(submit)}>
+                    <UserDetails
+                        inputRegister={register}
+                        getValues={getValues}
+                        getFullInfo={handleFullInfo}
+                        errors={errors}
+                    />
+                    <AnimalDetails
+                        inputRegister={register}
+                        uploadImages={handleImageUploaded}
+                        getValues={getValues}
+                        imageThumbnail={imageThumbnail}
+                        setImageThumbnail={setImageThumbnail}
+                        getDynamicValidation={setValidation}
+                        getImagesLinks={handleImageLinks}
+                        getFullInfo={handleFullInfo}
+                        errors={errors}
+                    />
+                </form>
+            </Box>
         </Box>
     );
 };
