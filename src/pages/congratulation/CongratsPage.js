@@ -5,18 +5,30 @@ import { images } from '../../assets/images';
 import { useLocation } from 'react-router';
 const useStyles = makeStyles({
     container: {
-        marginBottom: '0.5rem',
+        backgroundImage: `url(${images.formbg})`,
+        backgroundColor: colors.lighterPrimary,
+        backgroundSize: 'cover',
+        backgroundPosition: '100% 100%',
+        padding: '1.5rem',
+        '@media (max-width: 501px)': {
+            backgroundImage: 'none',
+        },
     },
-    wrapper: {
-        width: '100%',
+    fieldWrapper: {
+        maxWidth: '25rem',
+        margin: 'auto',
     },
+
     heading: {
         marginTop: '0.5rem',
         marginBottom: '1rem',
-        fontSize: '2rem',
+        fontSize: '1Srem',
         textAlign: 'center',
         fontWeight: 'bold',
         width: '100%',
+        '@media (min-width: 501px)': {
+            fontSize: '2rem',
+        },
     },
 
     boldText: {
@@ -28,9 +40,9 @@ const useStyles = makeStyles({
     },
     subHeaing: {
         fontSize: '1rem',
-        textAlign:'center',
-        marginLeft: 8,
-        marginBottom: '1rem',
+        fontWeight: 'bold',
+        marginBottom: '.3rem',
+        margin: '.5rem',
     },
     image: {
         position: 'relative',
@@ -38,9 +50,9 @@ const useStyles = makeStyles({
         left: 0,
         bottom: 0,
         right: 0,
-        height: '50%',
+        height: '20%',
         width: '100%',
-        marginTop: '-21%',
+        marginTop: '-60%',
     },
     imageBorder: {
         position: 'relative',
@@ -89,7 +101,7 @@ const CongratsPage = () => {
                 milk: data.userInfo.milking_capacity,
                 byat: data.userInfo.pregnancy_count,
                 rate: data.userInfo.rate,
-                location: data.userInfo.stateName+' '+data.userInfo.districtName+' '+data.userInfo.blockName,
+                location: data.userInfo.stateName + ' ' + data.userInfo.districtName + ' ' + data.userInfo.blockName,
             });
         }
     }, [routes]);
@@ -98,20 +110,22 @@ const CongratsPage = () => {
         <Box className={classes.container}>
             <img className={classes.image} src={images.celebration} />
             <Typography className={classes.heading}>{state.username} जी, बधाई हो </Typography>
-            {/* <Typography className={classes.subHeaing}>
-           
-            </Typography> */}
-            <Box className={classes.imageBorder}>
-                <Typography className={classes.heading}>
-                Krishify पर बिक्री के लिए आपके पशु की पोस्ट बन गयी है
+            <Box className={classes.fieldWrapper}>
+                <Box className={classes.imageBorder}>
+                    <Typography className={classes.heading}>
+                        Krishify पर बिक्री के लिए आपके पशु की पोस्ट बन गयी है
+                    </Typography>
+                    <img className={classes.imageBorder} src={state.animalPhoto} />
+                    <Typography className={classes.subHeaing}>
+                        {state.milk} दूध लीटर, बयात {state.byat} , ₹ {state.rate}
+                    </Typography>
+                    <Typography className={classes.subHeaing}>{state.location}</Typography>
+                </Box>
+                <Typography className={classes.boldText}>
+                    अपने पशु के लिए इच्छुक खरीददार देखने के लिए और उनसे बात करने के लिए नीचे लिंक दबाकर Krishify ऍप
+                    इनस्टॉल करें।
                 </Typography>
-                <img className={classes.imageBorder} src={state.animalPhoto} />
-                <Typography className={classes.subHeaing}>
-                    {state.milk} Milk, {state.byat}, Rs {state.rate}
-                </Typography>
-                <Typography className={classes.subHeaing}>{state.location}</Typography>
             </Box>
-            <Typography className={classes.boldText}>Apna pashu ka ordertrack karne k liea click kare</Typography>
         </Box>
     );
 };
