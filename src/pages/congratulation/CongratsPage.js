@@ -88,7 +88,7 @@ const CongratsPage = () => {
                 milk: data.userInfo.milking_capacity,
                 byat: data.userInfo.pregnancy_count,
                 rate: data.userInfo.rate,
-                location: data.userInfo.stateName+' '+data.userInfo.districtName+' '+data.userInfo.blockName,
+                location: data.userInfo.stateName + ' ' + data.userInfo.districtName + ' ' + data.userInfo.blockName,
             });
         }
     }, [routes]);
