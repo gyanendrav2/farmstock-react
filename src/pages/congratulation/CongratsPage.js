@@ -5,9 +5,11 @@ import { images } from '../../assets/images';
 import { useLocation } from 'react-router';
 import { getAllPostInfoAPIcall } from '../../redux/actions/animalActions';
 import { LocationOn } from '@material-ui/icons';
+import cn from 'classnames';
+
 const useStyles = makeStyles({
     container: {
-        // backgroundImage: `url(${images.formbg})`,
+        backgroundImage: (props) => (props.remove ? 'none' : `url(${images.celebration})`),
         // backgroundColor: colors.lighterPrimary,
         backgroundSize: 'cover',
         backgroundPosition: '100% 100%',
@@ -39,17 +41,25 @@ const useStyles = makeStyles({
 
     boldText: {
         marginTop: '0.5rem',
-        marginBottom: '1rem',
-        fontSize: 14,
-        fontWeight: 'bold',
+        fontSize: '1.5rem',
+        fontWeight: 700,
         width: '100%',
     },
     subHeaing: {
-        fontSize: '1rem',
-        fontWeight: 'bold',
+        fontSize: '2rem',
+        fontWeight: 900,
         marginBottom: '.3rem',
         paddingLeft: '1rem',
         lineHeight: '2rem',
+        marginTop: '1rem',
+    },
+    address: {
+        fontSize: '1.5rem',
+        fontWeight: 500,
+        marginBottom: '.3rem',
+        paddingLeft: '1rem',
+        lineHeight: '2rem',
+        marginTop: '1rem',
     },
     image: {
         position: 'relative',
@@ -83,6 +93,16 @@ const useStyles = makeStyles({
     red: {
         color: colors.red,
     },
+    link: {
+        marginTop: '0.5rem',
+        fontSize: '1.5rem',
+        fontWeight: 700,
+        width: '100%',
+        display: 'inline-block',
+    },
+    mb: {
+        marginBottom: '2rem',
+    },
     linksWapper: {
         backgroundColor: colors.lighterGray,
         padding: '1rem',
@@ -94,9 +114,19 @@ const useStyles = makeStyles({
             width: '100%',
         },
     },
+    no1app: {
+        fontSize: '1.1rem',
+        fontWeight: 600,
+    },
+    logo: {
+        width: '2rem',
+        borderRadius: '50%',
+        marginRight: '1rem',
+    },
 });
 const CongratsPage = () => {
-    const classes = useStyles();
+    const [time, setTime] = useState(false);
+    const classes = useStyles({ remove: time });
     const routes = useLocation();
     const [state, setState] = useState({
         username: '',
@@ -112,6 +142,9 @@ const CongratsPage = () => {
         if (data) {
             getAllInformation(data.userInfo.postId);
         }
+        setTimeout(() => {
+            setTime(true);
+        }, 5000);
     }, [routes]);
 
     const getAllInformation = async (id) => {
@@ -132,7 +165,7 @@ const CongratsPage = () => {
 
     return (
         <Box className={classes.container}>
-            <img className={classes.image} src={images.celebration} />
+            {/* <img className={classes.image} src={images.celebration} /> */}
             <Typography className={classes.heading}>{state.username} जी, बधाई हो </Typography>
             <Box className={classes.fieldWrapper}>
                 <Box className={classes.imageBorder}>
@@ -141,7 +174,7 @@ const CongratsPage = () => {
                     </Typography>
                     <img className={classes.imageBorder} src={state.animalPhoto} />
                     <Typography className={classes.subHeaing}>{state.heading}</Typography>
-                    <Typography className={classes.subHeaing}>
+                    <Typography className={classes.address}>
                         <LocationOn />
                         {' ' + state.location}
                     </Typography>
@@ -152,9 +185,12 @@ const CongratsPage = () => {
                         अपने पशु के लिए इच्छुक खरीददार देखने के लिए और उनसे बात करने के लिए नीचे लिंक दबाकर Krishify ऍप
                         इनस्टॉल करें।
                     </Typography>
-                    <Grid item xs={8} sm={8} lg={8} xl={8} md={8}>
-                        <Typography className={classes.boldText}>{state.link}</Typography>
-                        <Typography className={classes.boldText}>Krishify - किसान का No. 1 App</Typography>
+                    <a href={state.link} className={cn(classes.link, classes.mb)}>
+                        {state.link}
+                    </a>
+                    <Grid item xs={8} sm={8} lg={8} xl={8} md={8} container alignItems="center" justify="flex-start">
+                        <img src={images.logo} className={classes.logo} />
+                        <Typography className={classes.no1app}>Krishify-किसान का ऍप</Typography>
                     </Grid>
                     <Grid item xs={4} sm={4} lg={4} xl={4} md={4} container alignItems="center" justify="flex-end">
                         <img src={images.googleplay} className={classes.googleplay} alt="" />

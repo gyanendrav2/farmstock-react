@@ -13,19 +13,18 @@ import ImageCard from '../../components/card/ImageCard';
 import { baseUrl } from '../../utility/baseurls';
 import { validationGenerator } from '../../helper/validationGenerator';
 import TextArea from '../../components/inputs/TextArea';
-import { images } from '../../assets/images';
 import { toast } from 'react-toastify';
 
 const useStyles = makeStyles({
     wrapper: {
-        backgroundImage: `url(${images.formbg})`,
         backgroundColor: colors.lighterPrimary,
-        backgroundSize: 'cover',
-        backgroundPosition: '100% 100%',
+        // backgroundImage: `url(${images.formbg})`,
+        // backgroundSize: 'cover',
+        // backgroundPosition: '100% 100%',
         padding: '1.5rem',
-        '@media (min-width: 501px)': {
-            backgroundImage: 'none',
-        },
+        // '@media (min-width: 501px)': {
+        //     backgroundImage: 'none',
+        // },
     },
     fieldWrapper: {
         maxWidth: '25rem',
@@ -46,6 +45,7 @@ const useStyles = makeStyles({
         width: '100%',
         fontSize: '1rem',
         fontWeight: 600,
+        backgroundColor: colors.lightGreen
     },
 });
 
@@ -114,7 +114,7 @@ const AnimalDetails = ({
                 block_id: data.block_id,
             };
             resetFields(refactorData);
-            toast.success('कृपया पहले पशु को चुन। ');
+            toast.success('कृपया पहले पशु चुन।');
         }
     };
 

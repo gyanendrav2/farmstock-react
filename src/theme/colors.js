@@ -13,6 +13,6 @@ export const colors = {
     lightBlack: 'rgba(0, 0, 0, 0.42)',
     red: "#ff0000",
     lightyellow: '#ffffcc',
-    lightGreen: '#c8fbbf',
+    lightGreen: '#36a851',
     lighterGray: '#dbddf5'
 };

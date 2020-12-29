@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 import { createNewUserAPIcall, createNewPublicPostAPIcall } from '../redux/actions/animalActions';
 import { routeEndpoints } from '../routes/routeEndpoints';
+import { getLatLong } from './getLattitudeLongitude';
 
 export const createUser = async (
     data,
@@ -26,7 +27,7 @@ export const createUser = async (
             delete data.state;
             delete data.district;
             const postAnimal = {
-                location: '85.7119417, 23.5330837',
+                location: getLatLong(),
                 images: imageUploaded,
                 user: result.data.id,
                 ...data,
