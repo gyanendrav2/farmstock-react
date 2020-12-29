@@ -6,6 +6,7 @@ import { useLocation } from 'react-router';
 import { getAllPostInfoAPIcall } from '../../redux/actions/animalActions';
 import { LocationOn } from '@material-ui/icons';
 import cn from 'classnames';
+import $ from 'jquery';
 
 const useStyles = makeStyles({
     container: {
@@ -125,7 +126,7 @@ const useStyles = makeStyles({
     },
 });
 const CongratsPage = () => {
-    const [time, setTime] = useState(false);
+    const [time, setTime] = useState(true);
     const classes = useStyles({ remove: time });
     const routes = useLocation();
     const [state, setState] = useState({
@@ -136,15 +137,20 @@ const CongratsPage = () => {
         location: '',
         link: '',
     });
+    useEffect(() => {
+        $(window).on('load', () => {
+            setTime(false);
+            setTimeout(() => {
+                setTime(true);
+            }, 5000);
+        });
+    }, []);
 
     useEffect(() => {
         const data = routes?.state?.info;
         if (data) {
             getAllInformation(data.userInfo.postId);
         }
-        setTimeout(() => {
-            setTime(true);
-        }, 5000);
     }, [routes]);
 
     const getAllInformation = async (id) => {
