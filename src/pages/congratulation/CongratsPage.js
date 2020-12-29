@@ -1,22 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import { colors } from '../../theme/colors';
 import { images } from '../../assets/images';
 import { useLocation } from 'react-router';
+import { getAllPostInfoAPIcall } from '../../redux/actions/animalActions';
+import { LocationOn } from '@material-ui/icons';
 const useStyles = makeStyles({
     container: {
-        marginBottom: '0.5rem',
+        // backgroundImage: `url(${images.formbg})`,
+        // backgroundColor: colors.lighterPrimary,
+        backgroundSize: 'cover',
+        backgroundPosition: '100% 100%',
+        padding: '1.5rem',
+        '@media (max-width: 500px)': {
+            // backgroundImage: 'none',
+            padding: 0,
+        },
     },
-    wrapper: {
-        width: '100%',
+    fieldWrapper: {
+        maxWidth: '70%',
+        margin: 'auto',
+        '@media (max-width:500px)': {
+            maxWidth: '100%',
+        },
     },
+
     heading: {
         marginTop: '0.5rem',
         marginBottom: '1rem',
-        fontSize: '2rem',
+        fontSize: '1Srem',
         textAlign: 'center',
         fontWeight: 'bold',
         width: '100%',
+        '@media (min-width: 501px)': {
+            fontSize: '2rem',
+        },
     },
 
     boldText: {
@@ -28,9 +46,10 @@ const useStyles = makeStyles({
     },
     subHeaing: {
         fontSize: '1rem',
-        textAlign:'center',
-        marginLeft: 8,
-        marginBottom: '1rem',
+        fontWeight: 'bold',
+        marginBottom: '.3rem',
+        paddingLeft: '1rem',
+        lineHeight: '2rem',
     },
     image: {
         position: 'relative',
@@ -38,9 +57,9 @@ const useStyles = makeStyles({
         left: 0,
         bottom: 0,
         right: 0,
-        height: '50%',
+        height: '20%',
         width: '100%',
-        marginTop: '-21%',
+        marginTop: '-60%',
     },
     imageBorder: {
         position: 'relative',
@@ -64,51 +83,84 @@ const useStyles = makeStyles({
     red: {
         color: colors.red,
     },
+    linksWapper: {
+        backgroundColor: colors.lighterGray,
+        padding: '1rem',
+    },
+    googleplay: {
+        width: '10rem',
+        alignSelf: 'flex-start',
+        '@media (max-width:700px)': {
+            width: '100%',
+        },
+    },
 });
 const CongratsPage = () => {
     const classes = useStyles();
     const routes = useLocation();
-    console.log(routes);
     const [state, setState] = useState({
         username: '',
         animal: '',
         animalPhoto: '',
-        milk: '',
-        byat: '',
-        rate: '',
+        heading: '',
         location: '',
+        link: '',
     });
 
     useEffect(() => {
         const data = routes?.state?.info;
         if (data) {
-            setState({
-                username: data.userInfo.userName,
-                animal: data.userName,
-                animalPhoto: data.images[0],
-                milk: data.userInfo.milking_capacity,
-                byat: data.userInfo.pregnancy_count,
-                rate: data.userInfo.rate,
-                location: data.userInfo.stateName+' '+data.userInfo.districtName+' '+data.userInfo.blockName,
-            });
+            getAllInformation(data.userInfo.postId);
         }
     }, [routes]);
+
+    const getAllInformation = async (id) => {
+        const result = await getAllPostInfoAPIcall(id);
+        if (result.status === 200) {
+            const data = result.data;
+            setState({
+                ...state,
+                heading: data.heading,
+                username: data.user.full_name,
+                animal: data.animal.name,
+                animalPhoto: data.images[0].image.original,
+                location: data.location_text,
+                link: data.deep_link,
+            });
+        }
+    };
 
     return (
         <Box className={classes.container}>
             <img className={classes.image} src={images.celebration} />
             <Typography className={classes.heading}>{state.username} जी, बधाई हो </Typography>
-            <Box className={classes.imageBorder}>
-                <Typography className={classes.heading}>
-                Krishify पर बिक्री के लिए आपके पशु की पोस्ट बन गयी है
-                </Typography>
-                <img className={classes.imageBorder} src={state.animalPhoto} />
-                <Typography className={classes.subHeaing}>
-                    {state.milk} Milk, {state.byat}, Rs {state.rate}
-                </Typography>
-                <Typography className={classes.subHeaing}>{state.location}</Typography>
+            <Box className={classes.fieldWrapper}>
+                <Box className={classes.imageBorder}>
+                    <Typography className={classes.heading}>
+                        Krishify पर बिक्री के लिए आपके पशु की पोस्ट बन गयी है
+                    </Typography>
+                    <img className={classes.imageBorder} src={state.animalPhoto} />
+                    <Typography className={classes.subHeaing}>{state.heading}</Typography>
+                    <Typography className={classes.subHeaing}>
+                        <LocationOn />
+                        {' ' + state.location}
+                    </Typography>
+                </Box>
+
+                <Grid container className={classes.linksWapper}>
+                    <Typography className={classes.boldText}>
+                        अपने पशु के लिए इच्छुक खरीददार देखने के लिए और उनसे बात करने के लिए नीचे लिंक दबाकर Krishify ऍप
+                        इनस्टॉल करें।
+                    </Typography>
+                    <Grid item xs={8} sm={8} lg={8} xl={8} md={8}>
+                        <Typography className={classes.boldText}>{state.link}</Typography>
+                        <Typography className={classes.boldText}>Krishify - किसान का No. 1 App</Typography>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4} xl={4} md={4} container alignItems="center" justify="flex-end">
+                        <img src={images.googleplay} className={classes.googleplay} alt="" />
+                    </Grid>
+                </Grid>
             </Box>
-            <Typography className={classes.boldText}>Apna pashu ka ordertrack karne k liea click kare</Typography>
         </Box>
     );
 };

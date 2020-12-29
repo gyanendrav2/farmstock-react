@@ -32,6 +32,7 @@ export const createUser = async (
                 ...data,
             };
             const postResult = await createNewPublicPostAPIcall(postAnimal);
+
             if (postResult.data) {
                 toast.success('Your post is successfully submitted.');
                 resetUploaded([]);
@@ -42,7 +43,7 @@ export const createUser = async (
                     state: {
                         info: {
                             images: uploadedImages,
-                            userInfo: information,
+                            userInfo: { ...information, postId: postResult.data.id },
                         },
                     },
                 });

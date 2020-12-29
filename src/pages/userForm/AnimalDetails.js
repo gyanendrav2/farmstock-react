@@ -14,6 +14,7 @@ import { baseUrl } from '../../utility/baseurls';
 import { validationGenerator } from '../../helper/validationGenerator';
 import TextArea from '../../components/inputs/TextArea';
 import { images } from '../../assets/images';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -56,6 +57,8 @@ const AnimalDetails = ({
     setImageThumbnail,
     getDynamicValidation,
     getImagesLinks,
+    getValues,
+    resetFields,
 }) => {
     const classes = useStyles();
     const featureData = useSWR(apiEndpoints.featureListing, fetcher);
@@ -100,6 +103,21 @@ const AnimalDetails = ({
         }
     };
 
+    const ifAnimalNotSelected = () => {
+        const data = { ...getValues() };
+        if (data.animal === '') {
+            const refactorData = {
+                userName: data.userName,
+                phoneNumber: data.phoneNumber,
+                state: data.state,
+                district: data.district,
+                block_id: data.block_id,
+            };
+            resetFields(refactorData);
+            toast.success('कृपया पहले पशु को चुन। ');
+        }
+    };
+
     return (
         <Box className={classes.wrapper}>
             <Box className={classes.fieldWrapper}>
@@ -127,6 +145,7 @@ const AnimalDetails = ({
                                 error={errors[item.feature] ? true : false}
                                 errorMsg={errors[item.feature]?.message}
                                 inputRegister={inputRegister}
+                                onChange={ifAnimalNotSelected}
                             />
                         );
                     } else if (item.feature_type === 'key_value_pair_drop_down') {
@@ -141,6 +160,7 @@ const AnimalDetails = ({
                                     error={errors[item.feature] ? true : false}
                                     errorMsg={errors[item.feature]?.message}
                                     inputRegister={inputRegister}
+                                    onChange={ifAnimalNotSelected}
                                 />
                             </>
                         );
@@ -155,6 +175,7 @@ const AnimalDetails = ({
                                 error={errors[item.feature] ? true : false}
                                 errorMsg={errors[item.feature]?.message}
                                 inputRegister={inputRegister}
+                                onChange={ifAnimalNotSelected}
                             />
                         );
                     } else if (item.feature_type == 'string') {
@@ -179,6 +200,7 @@ const AnimalDetails = ({
                                     error={errors[item.feature] ? true : false}
                                     errorMsg={errors[item.feature]?.message}
                                     inputRegister={inputRegister}
+                                    onChange={ifAnimalNotSelected}
                                 />
                             </>
                         );
@@ -201,6 +223,7 @@ AnimalDetails.propTypes = {
     setImageThumbnail: PropTypes.func,
     getDynamicValidation: PropTypes.func,
     getImagesLinks: PropTypes.func,
+    resetFields: PropTypes.func,
 };
 
 export default AnimalDetails;

@@ -117,6 +117,7 @@ const UserForm = () => {
                         getDynamicValidation={setValidation}
                         getImagesLinks={handleImageLinks}
                         getFullInfo={handleFullInfo}
+                        resetFields={reset}
                         errors={errors}
                     />
                 </form>

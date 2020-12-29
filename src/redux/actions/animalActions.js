@@ -51,3 +51,10 @@ export const getAllBlocksAPIcall = async (id) => {
     dispatch(spinner(false));
     return result;
 };
+
+export const getAllPostInfoAPIcall = async (id) => {
+    dispatch(spinner(true));
+    const result = await API.get(apiEndpoints.postInfo + id).then((res) => res);
+    dispatch(spinner(false));
+    return result;
+};
