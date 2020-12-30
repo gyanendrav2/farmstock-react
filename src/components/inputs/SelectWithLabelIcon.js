@@ -50,14 +50,6 @@ const useStyles = makeStyles({
         padding: '0.5rem',
         color: colors.black,
         backgroundColor: colors.white,
-        // '&:first-child': {
-        //     color: (props) => (props.error ? colors.red : colors.darkGray)+'!important',
-        // },
-        // '& ::placeholder': {
-        //     color: (props) => (props.error ? colors.red : colors.darkGray),
-        //     opacity: 1,
-        //     fontSize: '0.75rem',
-        // },
         '& ::-ms-expand': {
             display: 'none',
         },
@@ -100,7 +92,7 @@ const SelectWithLabelIcon = ({
                 <Box className={classes.inputContainer}>
                     <select ref={inputRegister} className={cn(classes.input)} error={error} {...props}>
                         <option value="" hidden className={classes.fistChild}>
-                            --{placeholder}--
+                            {placeholder}
                         </option>
                         {options.map((item, i) => (
                             <option key={i} value={item.value}>
@@ -109,16 +101,6 @@ const SelectWithLabelIcon = ({
                         ))}
                     </select>
                 </Box>
-                {/* <Grid
-                    container
-                    ref={inputRegister}
-                    error={errorMsg?.message ? true : false}
-                    alignItems="center"
-                    justify="center"
-                    className={classes.iconContainer}
-                >
-                    {icon ? icon : <ArrowDropDown className={classes.icon} />}
-                </Grid> */}
             </Grid>
             <ErrorMessage errorMsg={errorMsg} />
         </Box>

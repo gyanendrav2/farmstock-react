@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         },
     },
     fieldWrapper: {
-        maxWidth: '70%',
+        maxWidth: '900px',
         margin: 'auto',
         '@media (max-width:500px)': {
             maxWidth: '100%',
@@ -135,7 +135,7 @@ const useStyles = makeStyles({
     },
     animalImg: {
         width: '100%',
-        height: '100%',
+        height: '22rem',
         objectFit: 'cover',
         borderColor: 'blue',
         border: 'solid 1px',
