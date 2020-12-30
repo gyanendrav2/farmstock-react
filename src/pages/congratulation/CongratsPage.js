@@ -6,7 +6,6 @@ import { useLocation } from 'react-router';
 import { getAllPostInfoAPIcall } from '../../redux/actions/animalActions';
 import { LocationOn } from '@material-ui/icons';
 import cn from 'classnames';
-import $ from 'jquery';
 
 const useStyles = makeStyles({
     container: {
@@ -127,6 +126,9 @@ const useStyles = makeStyles({
     no1app: {
         fontSize: '1.1rem',
         fontWeight: 600,
+        '@media (max-width:320px)': {
+            fontSize: '0.8rem',
+        },
     },
     logo: {
         width: '2rem',
@@ -146,14 +148,6 @@ const CongratsPage = () => {
         location: '',
         link: '',
     });
-    useEffect(() => {
-        $(window).on('load', () => {
-            setTime(false);
-            setTimeout(() => {
-                setTime(true);
-            }, 5000);
-        });
-    }, []);
 
     useEffect(() => {
         const data = routes?.state?.info;
@@ -165,6 +159,10 @@ const CongratsPage = () => {
     const getAllInformation = async (id) => {
         const result = await getAllPostInfoAPIcall(id);
         if (result.status === 200) {
+            setTime(false);
+            setTimeout(() => {
+                setTime(true);
+            }, 5000);
             const data = result.data;
             setState({
                 ...state,
@@ -180,7 +178,6 @@ const CongratsPage = () => {
 
     return (
         <Box className={classes.container}>
-            {/* <img className={classes.image} src={images.celebration} /> */}
             <Typography className={classes.heading}>{state.username} जी, बधाई हो </Typography>
             <Box className={classes.fieldWrapper}>
                 <Box className={classes.imageBorder}>

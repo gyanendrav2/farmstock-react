@@ -14,6 +14,7 @@ import { baseUrl } from '../../utility/baseurls';
 import { validationGenerator } from '../../helper/validationGenerator';
 import TextArea from '../../components/inputs/TextArea';
 import { toast } from 'react-toastify';
+import { FRONT_SUCCESS, BACK_SUCCESS, LEFT_SUCCESS, RIGHT_SUCCESS } from '../../redux/actionTypes/animalTypes';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -45,7 +46,7 @@ const useStyles = makeStyles({
         width: '100%',
         fontSize: '1rem',
         fontWeight: 600,
-        backgroundColor: colors.lightGreen
+        backgroundColor: colors.lightGreen,
     },
 });
 
@@ -61,10 +62,12 @@ const AnimalDetails = ({
     resetFields,
 }) => {
     const classes = useStyles();
+    const picOrientation = [FRONT_SUCCESS, BACK_SUCCESS, LEFT_SUCCESS, RIGHT_SUCCESS];
     const featureData = useSWR(apiEndpoints.featureListing, fetcher);
     const animals = useSWR(apiEndpoints.animals, fetcher);
     const [featureListingData, setFeatureListingData] = useState([]);
     const [animalsList, setAnimalsList] = useState([]);
+
     useEffect(() => {
         if (featureData.data) {
             setFeatureListingData(featureData.data);
@@ -92,7 +95,7 @@ const AnimalDetails = ({
     };
 
     const handleFileUpload = async (e, index) => {
-        const result = await uploadAnimalImagesAPIcall(e.target.files[0]);
+        const result = await uploadAnimalImagesAPIcall(e.target.files[0], picOrientation[index]);
 
         if (result?.data?.id) {
             const data = { ...imageThumbnail };

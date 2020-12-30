@@ -2,6 +2,8 @@ import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import UploadFileButton from '../buttons/UploadFileButton';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { images } from '../../assets/images';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -10,12 +12,15 @@ const useStyles = makeStyles({
     title: {
         marginTop: '1rem',
         marginBottom: '1rem',
-        fontWeight: 600
+        fontWeight: 600,
     },
 });
 
 const ImageCard = ({ imageThumbnail, handleFileUpload }) => {
     const classes = useStyles();
+    const uploadStatusIndex = ['frontSuccess', 'backSuccess', 'leftSuccess', 'rightSuccess'];
+    const uploadingStatus = useSelector((state) => state.animalReducer);
+
     return (
         <Box>
             <Typography className={classes.title}>{imageThumbnail.label}</Typography>
@@ -24,9 +29,9 @@ const ImageCard = ({ imageThumbnail, handleFileUpload }) => {
                 {imageThumbnail.images.map((item, i) => (
                     <UploadFileButton
                         key={i}
-                        handleFilePicker={(e)=>handleFileUpload(e, i)}
+                        handleFilePicker={(e) => handleFileUpload(e, i)}
                         alt={item.buttonText}
-                        src={item.image}
+                        src={uploadingStatus[uploadStatusIndex[i]] ? images.uploading : item.image}
                         label={item.buttonText}
                     />
                 ))}
@@ -37,7 +42,7 @@ const ImageCard = ({ imageThumbnail, handleFileUpload }) => {
 
 ImageCard.propTypes = {
     imageThumbnail: PropTypes.object,
-    handleFileUpload: PropTypes.func
+    handleFileUpload: PropTypes.func,
 };
 
 export default ImageCard;
