@@ -1,0 +1,8 @@
+export const IMAGE_UPLOADING = 'IMAGE_UPLOADING';
+export const FRONT_SUCCESS = 'FRONT_SUCCESS';
+export const RIGHT_SUCCESS = 'RIGHT_SUCCESS';
+export const LEFT_SUCCESS = 'LEFT_SUCCESS';
+export const BACK_SUCCESS = 'BACK_SUCCESS';
+
+
+

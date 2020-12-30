@@ -33,21 +33,21 @@ export const createUser = async (
                 ...data,
             };
             const postResult = await createNewPublicPostAPIcall(postAnimal);
-
             if (postResult.data) {
-                toast.success('Your post is successfully submitted.');
                 resetUploaded([]);
                 resetImage({ label: '', images: [] });
                 resetForm();
-                history.push({
-                    pathname: routeEndpoints.congratulation,
-                    state: {
-                        info: {
-                            images: uploadedImages,
-                            userInfo: { ...information, postId: postResult.data.id },
+                setTimeout(() => {
+                    history.push({
+                        pathname: routeEndpoints.congratulation,
+                        state: {
+                            info: {
+                                images: uploadedImages,
+                                userInfo: { ...information, postId: postResult.data.id },
+                            },
                         },
-                    },
-                });
+                    });
+                }, 1000);
             } else {
                 toast.success('Failed! something went wrong.');
             }

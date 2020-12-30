@@ -10,12 +10,10 @@ import cn from 'classnames';
 const useStyles = makeStyles({
     container: {
         backgroundImage: (props) => (props.remove ? 'none' : `url(${images.celebration})`),
-        // backgroundColor: colors.lighterPrimary,
         backgroundSize: 'cover',
         backgroundPosition: '100% 100%',
         padding: '1.5rem',
         '@media (max-width: 500px)': {
-            // backgroundImage: 'none',
             padding: 0,
         },
     },
@@ -52,6 +50,11 @@ const useStyles = makeStyles({
         paddingLeft: '1rem',
         lineHeight: '2rem',
         marginTop: '1rem',
+        '@media (max-width:739px)': {
+            fontSize: '1.2rem',
+            marginTop: 0,
+            marginBottom: 0,
+        },
     },
     address: {
         fontSize: '1.5rem',
@@ -60,6 +63,10 @@ const useStyles = makeStyles({
         paddingLeft: '1rem',
         lineHeight: '2rem',
         marginTop: '1rem',
+        '@media (max-width:739px)': {
+            fontSize: '1rem',
+            marginTop: 0,
+        },
     },
     image: {
         position: 'relative',
@@ -117,15 +124,28 @@ const useStyles = makeStyles({
     no1app: {
         fontSize: '1.1rem',
         fontWeight: 600,
+        '@media (max-width:320px)': {
+            fontSize: '0.8rem',
+        },
     },
     logo: {
         width: '2rem',
         borderRadius: '50%',
         marginRight: '1rem',
     },
+    animalImg: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        borderColor: 'blue',
+        border: 'solid 1px',
+        '@media (max-width:500px)': {
+            height: '10rem',
+        },
+    },
 });
 const CongratsPage = () => {
-    const [time, setTime] = useState(false);
+    const [time, setTime] = useState(true);
     const classes = useStyles({ remove: time });
     const routes = useLocation();
     const [state, setState] = useState({
@@ -142,9 +162,6 @@ const CongratsPage = () => {
         if (data) {
             getAllInformation(data.userInfo.postId);
         }
-        setTimeout(() => {
-            setTime(true);
-        }, 5000);
     }, [routes]);
 
     const getAllInformation = async (id) => {
@@ -163,16 +180,22 @@ const CongratsPage = () => {
         }
     };
 
+    const handleOnload = () => {
+        setTime(false);
+        setTimeout(() => {
+            setTime(true);
+        }, 5000);
+    };
+
     return (
         <Box className={classes.container}>
-            {/* <img className={classes.image} src={images.celebration} /> */}
             <Typography className={classes.heading}>{state.username} जी, बधाई हो </Typography>
             <Box className={classes.fieldWrapper}>
                 <Box className={classes.imageBorder}>
                     <Typography className={classes.heading}>
                         Krishify पर बिक्री के लिए आपके पशु की पोस्ट बन गयी है
                     </Typography>
-                    <img className={classes.imageBorder} src={state.animalPhoto} />
+                    <img className={classes.animalImg} onLoad={handleOnload} src={state.animalPhoto} />
                     <Typography className={classes.subHeaing}>{state.heading}</Typography>
                     <Typography className={classes.address}>
                         <LocationOn />
