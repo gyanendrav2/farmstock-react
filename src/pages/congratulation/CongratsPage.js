@@ -135,6 +135,16 @@ const useStyles = makeStyles({
         borderRadius: '50%',
         marginRight: '1rem',
     },
+    animalImg: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        borderColor: 'blue',
+        border: 'solid 1px',
+        '@media (max-width:500px)': {
+            height: '10rem',
+        },
+    },
 });
 const CongratsPage = () => {
     const [time, setTime] = useState(true);
@@ -187,7 +197,7 @@ const CongratsPage = () => {
                     <Typography className={classes.heading}>
                         Krishify पर बिक्री के लिए आपके पशु की पोस्ट बन गयी है
                     </Typography>
-                    <img className={classes.imageBorder} onLoad={handleOnload} src={state.animalPhoto} />
+                    <img className={classes.animalImg} onLoad={handleOnload} src={state.animalPhoto} />
                     <Typography className={classes.subHeaing}>{state.heading}</Typography>
                     <Typography className={classes.address}>
                         <LocationOn />
