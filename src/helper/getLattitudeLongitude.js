@@ -5,7 +5,7 @@ export const getLocation = () => {
         const result = navigator.geolocation.getCurrentPosition(showCurrentLocation);
         console.log("result", result)
     } else {
-        toast.success('Geolocation is not supported by this browser.');
+        toast.success('Geolocation is not supported by this browser.',  { position: 'top-center' });
     }
 };
 

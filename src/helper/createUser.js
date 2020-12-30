@@ -49,10 +49,10 @@ export const createUser = async (
                     });
                 }, 1000);
             } else {
-                toast.success('Failed! something went wrong.');
+                toast.success('Failed! something went wrong.', { position: 'top-center' });
             }
         }
     } else {
-        toast.success('कृपया अपने पशु की फोटो डाले!');
+        toast.success('कृपया अपने पशु की फोटो डाले!',  { position: 'top-center' });
     }
 };

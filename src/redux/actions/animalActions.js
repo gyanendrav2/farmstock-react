@@ -1,4 +1,3 @@
-import { toast } from 'react-toastify';
 import { getLatLong } from '../../helper/getLattitudeLongitude';
 import { API } from '../../utility/API';
 import { apiEndpoints } from '../../utility/apiEndpoints';
@@ -19,14 +18,7 @@ export const createNewPublicPostAPIcall = async (data) => {
     dispatch(setBackgroundColor('#fff'));
     dispatch(loaderMessages(['कृपया प्रतीक्षा करें 🙏', 'बिक्री के लिए आपके पशु 🐄 🐃  की पोस्ट बनाई जा रही है ']));
     dispatch(spinner(true));
-
-    // const toastId = toast.success('कृपया प्रतीक्षा करें 🙏 बिक्री के लिए आपके पशु 🐄 🐃  की पोस्ट बनाई जा रही है ', {
-    //     autoClose: false,
-    //     position: 'top-center',
-    //     delay: 0
-    // });
     const result = await API.post(apiEndpoints.publicPost, data).then((res) => res);
-    // toast.dismiss(toastId);
     setTimeout(() => {
         dispatch(setBackgroundColor(''));
         dispatch(loaderMessages(null));

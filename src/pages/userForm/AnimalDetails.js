@@ -117,7 +117,7 @@ const AnimalDetails = ({
                 block_id: data.block_id,
             };
             resetFields(refactorData);
-            toast.success('कृपया पहले पशु चुन।');
+            toast.success('कृपया पहले पशु चुन।', { position: 'top-center' });
         }
     };
 
