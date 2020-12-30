@@ -8,11 +8,11 @@ const useStyles = makeStyles({
     button: {
         width: (props) => (props.width ? props.width : 'auto'),
         padding: '0.4rem 0.7rem',
-        backgroundColor: colors.primary,
+        backgroundColor: colors.lightGreen,
         borderRadius: '5px',
         color: (props) => (props.color ? props.color : colors.white),
         '&:hover': {
-            backgroundColor: colors.primary,
+            backgroundColor: colors.lightGreen,
         },
     },
 });

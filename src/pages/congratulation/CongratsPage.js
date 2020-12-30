@@ -159,10 +159,6 @@ const CongratsPage = () => {
     const getAllInformation = async (id) => {
         const result = await getAllPostInfoAPIcall(id);
         if (result.status === 200) {
-            setTime(false);
-            setTimeout(() => {
-                setTime(true);
-            }, 5000);
             const data = result.data;
             setState({
                 ...state,
@@ -176,6 +172,13 @@ const CongratsPage = () => {
         }
     };
 
+    const handleOnload = () => {
+        setTime(false);
+        setTimeout(() => {
+            setTime(true);
+        }, 5000);
+    };
+
     return (
         <Box className={classes.container}>
             <Typography className={classes.heading}>{state.username} जी, बधाई हो </Typography>
@@ -184,7 +187,7 @@ const CongratsPage = () => {
                     <Typography className={classes.heading}>
                         Krishify पर बिक्री के लिए आपके पशु की पोस्ट बन गयी है
                     </Typography>
-                    <img className={classes.imageBorder} src={state.animalPhoto} />
+                    <img className={classes.imageBorder} onLoad={handleOnload} src={state.animalPhoto} />
                     <Typography className={classes.subHeaing}>{state.heading}</Typography>
                     <Typography className={classes.address}>
                         <LocationOn />
