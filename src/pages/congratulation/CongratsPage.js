@@ -10,12 +10,10 @@ import cn from 'classnames';
 const useStyles = makeStyles({
     container: {
         backgroundImage: (props) => (props.remove ? 'none' : `url(${images.celebration})`),
-        // backgroundColor: colors.lighterPrimary,
         backgroundSize: 'cover',
         backgroundPosition: '100% 100%',
         padding: '1.5rem',
         '@media (max-width: 500px)': {
-            // backgroundImage: 'none',
             padding: 0,
         },
     },

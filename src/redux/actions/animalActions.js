@@ -4,7 +4,7 @@ import { API } from '../../utility/API';
 import { apiEndpoints } from '../../utility/apiEndpoints';
 import { IMAGE_UPLOADING } from '../actionTypes/animalTypes';
 import { dispatch } from '../store/Store';
-import { loaderMessages, spinner } from './uiAction';
+import { loaderMessages, setBackgroundColor, spinner } from './uiAction';
 
 export const fetcher = (url) => API.get(url).then((res) => res.data);
 
@@ -16,18 +16,23 @@ export const createNewUserAPIcall = async (data) => {
 };
 
 export const createNewPublicPostAPIcall = async (data) => {
+    dispatch(setBackgroundColor('#fff'));
     dispatch(loaderMessages(['कृपया प्रतीक्षा करें 🙏', 'बिक्री के लिए आपके पशु 🐄 🐃  की पोस्ट बनाई जा रही है ']));
     dispatch(spinner(true));
 
-    const toastId = toast.success('कृपया प्रतीक्षा करें 🙏 बिक्री के लिए आपके पशु 🐄 🐃  की पोस्ट बनाई जा रही है ', {
-        autoClose: false,
-        position: 'top-center',
-        delay: 0
-    });
+    // const toastId = toast.success('कृपया प्रतीक्षा करें 🙏 बिक्री के लिए आपके पशु 🐄 🐃  की पोस्ट बनाई जा रही है ', {
+    //     autoClose: false,
+    //     position: 'top-center',
+    //     delay: 0
+    // });
     const result = await API.post(apiEndpoints.publicPost, data).then((res) => res);
-    toast.dismiss(toastId);
-    dispatch(loaderMessages(null));
-    dispatch(spinner(false));
+    // toast.dismiss(toastId);
+    setTimeout(() => {
+        dispatch(setBackgroundColor(''));
+        dispatch(loaderMessages(null));
+        dispatch(spinner(false));
+    }, 800);
+
     return result;
 };
 
